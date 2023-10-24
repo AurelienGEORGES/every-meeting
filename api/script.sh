@@ -1,7 +1,2 @@
-#!/bin/bash
-
-# Run composer install
-composer install
-
-# Lancer le serveur Symfony
+symfony composer install
 symfony server:start --no-tls
