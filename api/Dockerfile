@@ -29,4 +29,4 @@ ENV DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
 ENV MAILER_URL=null://localhost
 
 # Point d'entrée pour exécuter le script d'initialisation
-ENTRYPOINT ["/var/www/html/script.sh"]
+ENTRYPOINT ["bash", "/var/www/html/script.sh"]
