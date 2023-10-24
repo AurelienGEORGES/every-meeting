@@ -1,0 +1,59 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "80:8000"  
+    volumes:
+      - ./api:/var/www/api
+    environment:
+      - APP_ENV=dev
+      - DATABASE_URL=mysql://root:root@db:3306/everymeeting  
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  
+    volumes:
+      - ./client:/var/www/client
+    environment:
+      - REACT_APP_API_URL=http://api:80 
+    depends_on:
+      - api
+    networks:
+      - mynetwork
+
+  db:
+    image: mysql:latest  
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: everymeeting
+    networks:
+      - mynetwork
+    volumes:
+      - "my-volume:/var/lib/mysql"
+    
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "8080:80"  
+    environment:
+      PMA_ARBITRARY: 1
+    networks:
+      - mynetwork
+    depends_on:
+      - db
+
+networks:
+  mynetwork:
+
+volumes:
+  my-volume:
