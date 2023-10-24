@@ -8,4 +8,8 @@ WORKDIR /var/www/client
 COPY . .
 
 # Start the React development server
+<<<<<<< HEAD
 ENTRYPOINT ["bash", "./script.sh"]
+=======
+ENTRYPOINT ["bash", "./script.sh"]
+>>>>>>> 9b41cdca7a737590519aee0915cf4010395768b3

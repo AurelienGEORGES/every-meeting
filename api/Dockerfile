@@ -30,4 +30,7 @@ ENV MAILER_URL=null://localhost
 
 # Point d'entrée pour exécuter le script d'initialisation
 ENTRYPOINT ["bash", "/var/www/html/script.sh"]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9b41cdca7a737590519aee0915cf4010395768b3
