@@ -6,6 +6,14 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip
 
+# fixing symfony check:requirements
+RUN apt-get update && apt-get install -y libicu-dev
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
+
+RUN docker-php-ext-configure opcache --enable-opcache
+RUN docker-php-ext-install opcache
+
 # Active les modules Apache nécessaires
 RUN a2enmod rewrite
 

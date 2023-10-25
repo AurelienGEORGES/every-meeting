@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={callApi}>Click Me!!</button>
+        <button onClick={callApi}>Click Me!</button>
         {loading ? (
           <p>Loading...</p> // Display the loading indicator
         ) : (
