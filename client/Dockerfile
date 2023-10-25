@@ -1,6 +1,8 @@
 # Use an official Node.js image
 FROM node:lts
 
+RUN npm install npm@latest -g
+
 # Set the working directory
 WORKDIR /var/www/client
 
