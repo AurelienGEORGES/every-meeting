@@ -22,11 +22,5 @@ COPY ./ /var/www/html
 # Rend le script exécutable
 RUN chmod +x /var/www/html/script.sh
 
-# Définit l'URL de base pour Symfony
-ENV APP_ENV=dev
-ENV APP_SECRET=your-secret
-ENV DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
-ENV MAILER_URL=null://localhost
-
 # Point d'entrée pour exécuter le script d'initialisation
 ENTRYPOINT ["bash", "/var/www/html/script.sh"]
