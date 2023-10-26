@@ -30,5 +30,8 @@ COPY ./ /var/www/html
 # Rend le script exécutable
 RUN chmod +x /var/www/html/script.sh
 
+# Ajoute la configuration pour désactiver short_open_tag
+RUN echo "short_open_tag = Off" >> /usr/local/etc/php/php.ini
+
 # Point d'entrée pour exécuter le script d'initialisation
 ENTRYPOINT ["bash", "/var/www/html/script.sh"]
