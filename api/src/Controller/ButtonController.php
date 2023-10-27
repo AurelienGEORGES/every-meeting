@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ButtonController extends AbstractController
 {
-    #[Route('/api', name: 'app_api', methods: ['GET'])]
+    #[Route('/button-api', name: 'app_api', methods: ['GET'])]
     public function index(): JsonResponse
     {
         // Mettez en place la logique pour renvoyer la réponse JSON

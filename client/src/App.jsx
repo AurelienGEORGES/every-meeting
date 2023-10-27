@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import './App.css';
 import axios from 'axios';
+import './App.css';
 
 function App() {
   const [response, setResponse] = useState('');
@@ -9,21 +9,20 @@ function App() {
   const callApi = async () => {
     try {
       setLoading(true); // Activate loading indicator
-      const apiUrl = 'http://localhost/api'; // Replace with the correct API URL
-      const response = await axios.get(apiUrl);
-      setResponse(response.data.message);
-    } catch (error) {
-      console.error(error);
+      const apiUrl = 'http://localhost/button-api'; // Replace with the correct API URL
+      const apiResponse = await axios.get(apiUrl);
+      setResponse(apiResponse.data.message);
     } finally {
       setLoading(false); // Deactivate loading indicator whether the request was successful or not
     }
   };
 
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <button onClick={callApi}>Click Me!</button>
+    <div className='App'>
+      <header className='App-header'>
+        <button type='button' onClick={callApi}>
+          Click Me!
+        </button>
         {loading ? (
           <p>Loading...</p> // Display the loading indicator
         ) : (

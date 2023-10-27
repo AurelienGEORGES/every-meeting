@@ -27,11 +27,15 @@ RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh | bas
 # Copie le code source Symfony dans le conteneur
 COPY ./ /var/www/html
 
-# Rend le script exécutable
-RUN chmod +x /var/www/html/script.sh
-
 # Ajoute la configuration pour désactiver short_open_tag
 RUN echo "short_open_tag = Off" >> /usr/local/etc/php/php.ini
+
+# Set post_max_size and upload_max_filesize
+RUN echo "post_max_size = 150M" >> /usr/local/etc/php/php.ini
+RUN echo "upload_max_filesize = 100M" >> /usr/local/etc/php/php.ini
+
+# Rend le script exécutable
+RUN chmod +x /var/www/html/script.sh
 
 # Point d'entrée pour exécuter le script d'initialisation
 ENTRYPOINT ["bash", "/var/www/html/script.sh"]

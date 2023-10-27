@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "tests security, requirements, audit et codeSniffer sur l'api symfony"
+cd api 
+echo "test requirements"
+symfony check:requirements 
+echo "test security"
+symfony check:security 
+echo "test audit"
+npm audit
+echo "testCodeSniffer"
+php ./vendor/bin/phpcs
+php ./vendor/bin/phpcbf
+echo "tests Lint & Prettier sur le client React"
+cd ../client 
+echo "test Prettier"
+npm run format
+echo "test Linter"
+npm run lint
+
