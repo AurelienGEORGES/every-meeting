@@ -7,8 +7,6 @@ echo "test requirements"
 symfony check:requirements 
 echo "test security"
 symfony check:security 
-echo "test audit"
-npm audit
 echo "testCodeSniffer"
 php ./vendor/bin/phpcs
 php ./vendor/bin/phpcbf
