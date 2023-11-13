@@ -18,7 +18,7 @@ jobs:
         if: startsWith(github.job, 'Windows') || startsWith(github.job, 'macOS')
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: 'lts'
 
       - name: Install React dependencies
         if: startsWith(github.job, 'Windows') || startsWith(github.job, 'macOS')
@@ -37,7 +37,7 @@ jobs:
         if: startsWith(github.job, 'Ubuntu')
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.2'
 
       - name: Install API dependencies
         if: startsWith(github.job, 'Ubuntu')
@@ -63,7 +63,7 @@ jobs:
             context: .
             dockerfile: Dockerfile
             push: false
-            tags: ${{ secrets.DOCKERHUB_NAME }}/app-ag:latest
+            tags: ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -77,4 +77,4 @@ jobs:
             context: .
             dockerfile: Dockerfile
             push: true
-            tags: ${{ secrets.DOCKERHUB_NAME }}/app-ag:latest
+            tags: ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest,${{ secrets.DOCKERHUB_NAME }}/app-ag:latest
