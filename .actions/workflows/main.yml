@@ -1,0 +1,58 @@
+name: Pull Request Tests
+
+on: [pull_request]
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js (for React client)
+        if: startsWith(github.job, 'Windows') || startsWith(github.job, 'macOS')
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install React dependencies
+        if: startsWith(github.job, 'Windows') || startsWith(github.job, 'macOS')
+        run: |
+          cd client
+          npm install
+
+      - name: Run ESLint and Prettier (React client)
+        if: startsWith(github.job, 'Windows') || startsWith(github.job, 'macOS')
+        run: |
+          cd client
+          npx eslint . --ext .js,.jsx
+          npx prettier --check .
+
+      - name: Set up PHP (for Symfony API)
+        if: startsWith(github.job, 'Ubuntu')
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
+      - name: Install API dependencies
+        if: startsWith(github.job, 'Ubuntu')
+        run: |
+          cd api
+          composer install
+
+      - name: Check Security (Symfony API)
+        if: startsWith(github.job, 'Ubuntu')
+        run: |
+          cd api
+          symfony check:security
+
+      - name: Code Sniffer (Symfony API)
+        if: startsWith(github.job, 'Ubuntu')
+        run: |
+          cd api
+          vendor/bin/phpcs
