@@ -81,14 +81,14 @@ jobs:
         if: startsWith(github.job, 'windows') || startsWith(github.job, 'macos')
         working-directory: ./client
         run: |
-            docker build -t ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest -f Dockerfile .
+            docker build ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest
             docker push ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest
   
       - name: Build and Push API Docker Image (Windows and macOS)
         if: startsWith(github.job, 'windows') || startsWith(github.job, 'macos')
         working-directory: ./api
         run: |
-            docker build -t ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest -f Dockerfile .
+            docker build ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest
             docker push ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest        
 
 
