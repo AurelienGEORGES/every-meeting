@@ -68,8 +68,8 @@ jobs:
         if: startsWith(github.job, 'windows') || startsWith(github.job, 'macos')
         working-directory: ./client
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_NAME }}/client-app:latest -f Dockerfile .
-          docker push ${{ secrets.DOCKERHUB_NAME }}/client-app:latest
+          docker build -t ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest -f Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest
 
       - name: Set up PHP (for Symfony API) - Windows and macOS
         if: startsWith(github.job, 'windows') || startsWith(github.job, 'macos')
@@ -81,8 +81,8 @@ jobs:
         if: startsWith(github.job, 'windows') || startsWith(github.job, 'macos')
         working-directory: ./api
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_NAME }}/api-app:latest -f Dockerfile .
-          docker push ${{ secrets.DOCKERHUB_NAME }}/api-app:latest
+          docker build -t ${{ secrets.DOCKERHUB_NAME }}/everymeeting:latest -f Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_NAME }}/everymeetin:latest
 
 
 
