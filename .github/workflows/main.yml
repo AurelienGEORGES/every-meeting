@@ -87,16 +87,16 @@ jobs:
           DOCKER_BUILDKIT: 1
         run: |
             cd client
-            docker build -t $DOCKERHUB_NAME/client-image:latest .
-            docker push $DOCKERHUB_NAME/client-image:latest
+            docker build -t $DOCKERHUB_NAME/everymeeting:clientlatest .
+            docker push $DOCKERHUB_NAME/everymeeting:clientlatest
   
       - name: Build and Push API Image
         env:
             DOCKER_BUILDKIT: 1
         run: |
             cd api
-            docker build -t $DOCKERHUB_NAME/api-image:latest .
-            docker push $DOCKERHUB_NAME/api-image:latest
+            docker build -t $DOCKERHUB_NAME/everymeeting:apilatest .
+            docker push $DOCKERHUB_NAME/everymeeting:apilatest
 
               
 
