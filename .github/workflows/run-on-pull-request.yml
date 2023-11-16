@@ -5,27 +5,28 @@ on:
     branches: [main]
 
 jobs:
+    
   test-on-Ubuntu-OS:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run ESLint and Prettier on Ubuntu
-        working-directory: client  
+      - name: Run ESLint and Prettier on Ubuntu  
         run: |
           echo "test Lint et Prettier on Ubuntu"
+          cd client
           npm run format
           npm run lint
 
-      - name: Check Security on Ubuntu
-        working-directory: api   
+      - name: Check Security on Ubuntu  
         run: |
           echo "test security on Ubuntu"
+          cd api
           symfony check:security
 
       - name: Code Sniffer on Ubuntu
-        working-directory: api 
         run: |
           echo "test Code Sniffer on Ubuntu"
+          cd api
           php ./vendor/bin/phpcs
           php ./vendor/bin/phpcbf
 
@@ -33,23 +34,23 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Run ESLint and Prettier on Windows
-        working-directory: client  
+      - name: Run ESLint and Prettier on Windows 
         run: |
           echo "test Lint et Prettier"
+          cd client
           npm run format
           npm run lint
 
-      - name: Check Security on Windows
-        working-directory: api   
+      - name: Check Security on Windows   
         run: |
           echo "test security"
+          cd api
           symfony check:security
 
-      - name: Code Sniffer on Windows
-        working-directory: api 
+      - name: Code Sniffer on Windows 
         run: |
           echo "test Code Sniffer"
+          cd api
           php .\vendor\bin\phpcs
           php .\vendor\bin\phpcbf
 
@@ -57,23 +58,23 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Run ESLint and Prettier on MacOS
-        working-directory: client  
+      - name: Run ESLint and Prettier on MacOS  
         run: |
           echo "test Lint et Prettier on MacOS"
+          cd client
           npm run format
           npm run lint
 
-      - name: Check Security on MacOS
-        working-directory: api   
+      - name: Check Security on MacOS  
         run: |
           echo "test security on MacOS"
+          cd api
           symfony check:security
 
-      - name: Code Sniffer on MacOS
-        working-directory: api 
+      - name: Code Sniffer on MacOS 
         run: |
           echo "test Code Sniffer on MacOS"
+          cd api
           php ./vendor/bin/phpcs
           php ./vendor/bin/phpcbf
 
