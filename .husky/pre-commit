@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "tests security, requirements, audit et codeSniffer sur l'api symfony"
+echo "tests security et codeSniffer sur l'api symfony"
 
 cd api 
 echo "test security"
@@ -17,4 +17,3 @@ echo "test Prettier"
 npm run format
 echo "test Linter"
 npm run lint
-

@@ -1,0 +1,79 @@
+name: Run pull request
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-on-Ubuntu-OS:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run ESLint and Prettier on Ubuntu
+        working-directory: client  
+        run: |
+          echo "test Lint et Prettier on Ubuntu"
+          npm run format
+          npm run lint
+
+      - name: Check Security on Ubuntu
+        working-directory: api   
+        run: |
+          echo "test security on Ubuntu"
+          symfony check:security
+
+      - name: Code Sniffer on Ubuntu
+        working-directory: api 
+        run: |
+          echo "test Code Sniffer on Ubuntu"
+          php ./vendor/bin/phpcs
+          php ./vendor/bin/phpcbf
+
+  test-on-Windows-OS:
+    runs-on: windows-latest
+
+    steps:
+      - name: Run ESLint and Prettier on Windows
+        working-directory: client  
+        run: |
+          echo "test Lint et Prettier"
+          npm run format
+          npm run lint
+
+      - name: Check Security on Windows
+        working-directory: api   
+        run: |
+          echo "test security"
+          symfony check:security
+
+      - name: Code Sniffer on Windows
+        working-directory: api 
+        run: |
+          echo "test Code Sniffer"
+          php .\vendor\bin\phpcs
+          php .\vendor\bin\phpcbf
+
+  test-on-Macos-OS:
+    runs-on: macos-latest
+
+    steps:
+      - name: Run ESLint and Prettier on MacOS
+        working-directory: client  
+        run: |
+          echo "test Lint et Prettier on MacOS"
+          npm run format
+          npm run lint
+
+      - name: Check Security on MacOS
+        working-directory: api   
+        run: |
+          echo "test security on MacOS"
+          symfony check:security
+
+      - name: Code Sniffer on MacOS
+        working-directory: api 
+        run: |
+          echo "test Code Sniffer on MacOS"
+          php ./vendor/bin/phpcs
+          php ./vendor/bin/phpcbf
+

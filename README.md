@@ -1,3 +1,3 @@
 # app-ag
 
-test CI/CD pull request with dockerhub
+test CI pull request with dockerhub

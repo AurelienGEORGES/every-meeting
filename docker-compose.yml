@@ -10,14 +10,13 @@ services:
       - ./api:/var/www/html
     environment:
       - APP_ENV=dev
-      - DATABASE_URL="mysql://root:root@127.0.0.1:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"  
+      # - DATABASE_URL="mysql://root:root@127.0.0.1:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"  
     depends_on:
       - db
     networks:
       - mynetwork
 
   client:
-    #image: node:lts
     build:
       context: ./client
       dockerfile: Dockerfile
