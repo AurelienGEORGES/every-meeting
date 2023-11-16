@@ -1,0 +1,8 @@
+# Ignore .env.local file
+.env.local
+
+# Ignore var directory
+var/
+
+# Ignore vendor directory
+vendor/
