@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TinyKangarooRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TinyKangarooRepository::class)]
+#[ApiResource]
 class TinyKangaroo
 {
     #[ORM\Id]
