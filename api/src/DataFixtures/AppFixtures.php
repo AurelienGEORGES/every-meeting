@@ -10,7 +10,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
-
     /**
      * @var Generator
      */
@@ -23,7 +22,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i=1; $i <= 50; $i++) { 
+        for ($i = 1; $i <= 50; $i++) {
             $item = new Item();
             $item->setContent($this->faker->sentence());
             $manager->persist($item);
