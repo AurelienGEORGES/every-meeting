@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import axios from 'axios';
-import './App.css';
+import Todolist from './components/Todolist'
+import { useState } from 'react'
+import axios from 'axios'
+import './App.css'
 
 function App() {
   const [response, setResponse] = useState('');
@@ -28,6 +29,7 @@ function App() {
         ) : (
           <p>{response}</p> // Display the response
         )}
+        <Todolist />
       </header>
     </div>
   );

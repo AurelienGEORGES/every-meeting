@@ -20,6 +20,7 @@
         "symfony/expression-language": "6.3.*",
         "symfony/flex": "^2.4",
         "symfony/framework-bundle": "6.3.*",
+        "symfony/http-client": "6.3.*",
         "symfony/property-access": "6.3.*",
         "symfony/property-info": "6.3.*",
         "symfony/requirements-checker": "^2.0",
@@ -31,8 +32,14 @@
         "symfony/yaml": "6.3.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.5",
+        "fakerphp/faker": "^1.23",
+        "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "*",
-        "symfony/maker-bundle": "^1.51"
+        "symfony/browser-kit": "6.3.*",
+        "symfony/css-selector": "6.3.*",
+        "symfony/maker-bundle": "^1.51",
+        "symfony/phpunit-bridge": "^7.0"
     },
     "config": {
         "allow-plugins": {
