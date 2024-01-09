@@ -6,7 +6,6 @@
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
-         convertDeprecationsToExceptions="false"
 >
     <php>
         <ini name="display_errors" value="1" />
@@ -15,6 +14,12 @@
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="9.6" />
+        <!-- ajout gpt -->
+        <!-- <env name="APP_ENV" value="test"/> -->
+        <env name="APP_DEBUG" value="1"/>
+        <env name="APP_SECRET" value="$ecretf0rt3st"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="999999"/>
+        <server name="KERNEL_CLASS" value="App\Kernel"/>
     </php>
 
     <testsuites>
@@ -23,15 +28,17 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
-            <directory suffix=".php">src</directory>
+            <directory>./src</directory>
         </include>
-    </coverage>
-
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-    </listeners>
+        <exclude>
+            <directory>./src/ApiResource</directory>
+            <directory>./src/Controller</directory>
+            <directory>./src/DataFixtures</directory>
+            <directory>./src/Repository</directory>
+        </exclude>
+    </source>
 
     <extensions>
     </extensions>

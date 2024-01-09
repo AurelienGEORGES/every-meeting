@@ -6,13 +6,14 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip
     
-
 # fixing symfony check:requirements
 RUN apt-get update && apt-get install -y libicu-dev
 RUN docker-php-ext-configure intl 
 RUN docker-php-ext-install intl
 
-RUN docker-php-ext-configure opcache --enable-opcache
+#RUN docker-php-ext-configure opcache --enable-opcache
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+#fin test
 RUN docker-php-ext-install opcache
 RUN docker-php-ext-install pdo pdo_mysql
 
