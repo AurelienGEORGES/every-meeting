@@ -10,7 +10,8 @@ use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 
 class ItemFonctionnalTest extends ApiTestCase
 {
-    use ResetDatabase, Factories;
+    use ResetDatabase;
+    use Factories;
 
     public function testGetItems()
     {
@@ -88,7 +89,10 @@ class ItemFonctionnalTest extends ApiTestCase
         $client->request('DELETE', $iri);
         $this->assertResponseStatusCodeSame(204);
         $this->assertNull(
-            static::getContainer()->get('doctrine')->getRepository(Item::class)->findOneBy(['content' => 'min hello world!'])
+            static::getContainer()
+            ->get('doctrine')
+            ->getRepository(Item::class)
+            ->findOneBy(['content' => 'min hello world!'])
         );
     }
 }
