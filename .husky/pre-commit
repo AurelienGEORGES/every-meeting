@@ -7,8 +7,9 @@ cd api
 echo "test security"
 symfony check:security 
 echo "testCodeSniffer"
-php ./vendor/bin/phpcs
 php ./vendor/bin/phpcbf
+php ./vendor/bin/phpcs
+
 
 echo "tests Lint & Prettier sur le client React"
 

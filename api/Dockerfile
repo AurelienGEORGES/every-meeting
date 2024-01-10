@@ -5,14 +5,17 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip
-
+    
 # fixing symfony check:requirements
 RUN apt-get update && apt-get install -y libicu-dev
-RUN docker-php-ext-configure intl
+RUN docker-php-ext-configure intl 
 RUN docker-php-ext-install intl
 
-RUN docker-php-ext-configure opcache --enable-opcache
+#RUN docker-php-ext-configure opcache --enable-opcache
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+#fin test
 RUN docker-php-ext-install opcache
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Active les modules Apache nécessaires
 RUN a2enmod rewrite
@@ -30,9 +33,10 @@ COPY ./ /var/www/html
 # Ajoute la configuration pour désactiver short_open_tag
 RUN echo "short_open_tag = Off" >> /usr/local/etc/php/php.ini
 
-# Set post_max_size and upload_max_filesize
+# # Set post_max_size and upload_max_filesize
 RUN echo "post_max_size = 150M" >> /usr/local/etc/php/php.ini
 RUN echo "upload_max_filesize = 100M" >> /usr/local/etc/php/php.ini
+RUN echo "memory_limit = 512M" >> /usr/local/etc/php/php.ini
 
 # Rend le script exécutable
 RUN chmod +x /var/www/html/script.sh

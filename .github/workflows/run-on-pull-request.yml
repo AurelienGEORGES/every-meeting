@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
         run:
-          working-directory: client
+            working-directory: client
 
     steps:
 
@@ -20,92 +20,58 @@ jobs:
 
       - name: Run ESLint and Prettier on Ubuntu  
         run: |
-          echo "test Lint et Prettier on Ubuntu"
-          npm install
-          npm run format
-          npm run lint
+            echo "test Lint et Prettier on Ubuntu"
+            npm install
+            npm run format
+            npm run lint
 
   tests-on-api:
     runs-on: ubuntu-latest
+    env:
+        DB_USER: root
+        DB_PASSWORD: root
+        DB_NAME: everymeeting
+        DB_HOST: localhost
+        DATABASE_URL: "mysql://root:root@localhost:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"
     defaults:
         run:
-          working-directory: api
+            working-directory: api
 
     steps:
 
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Start MySQL
+        run: |
+            sudo /etc/init.d/mysql start
+            mysql -e 'CREATE DATABASE IF NOT EXISTS caterflow;' -uroot -proot
+
       - name: Install Symfony CLI
         run: |
-          wget https://get.symfony.com/cli/installer -O - | bash
-          sudo mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
+            wget https://get.symfony.com/cli/installer -O - | bash
+            sudo mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
+
+      - name: Setup PHP with Xdebug
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: "8.3"
+            coverage: xdebug
 
       - name: Check Security on Ubuntu  
         run: |
-          echo "test security on Ubuntu"
-          composer install
-          symfony check:security
+            echo "test security on Ubuntu"
+            composer install
+            symfony check:security
 
       - name: Code Sniffer on Ubuntu
         run: |
-          echo "test Code Sniffer on Ubuntu"
-          php ./vendor/bin/phpcs
-          php ./vendor/bin/phpcbf
+            echo "test Code Sniffer on Ubuntu"
+            php ./vendor/bin/phpcs
+            php ./vendor/bin/phpcbf
 
-#   test-on-Windows-OS:
-#     runs-on: windows-latest
-
-#     steps:
-
-#       - name: Checkout code
-#         uses: actions/checkout@v3
-
-#       - name: Run ESLint and Prettier on Windows 
-#         run: |
-#           echo "test Lint et Prettier"
-#           cd client
-#           npm run format
-#           npm run lint
-
-#       - name: Check Security on Windows   
-#         run: |
-#           echo "test security"
-#           cd api
-#           symfony check:security
-
-#       - name: Code Sniffer on Windows 
-#         run: |
-#           echo "test Code Sniffer"
-#           cd api
-#           php .\vendor\bin\phpcs
-#           php .\vendor\bin\phpcbf
-
-#   test-on-Macos-OS:
-#     runs-on: macos-latest
-
-#     steps:
-
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Run ESLint and Prettier on MacOS  
-#         run: |
-#           echo "test Lint et Prettier on MacOS"
-#           cd client
-#           npm run format
-#           npm run lint
-
-#       - name: Check Security on MacOS  
-#         run: |
-#           echo "test security on MacOS"
-#           cd api
-#           symfony check:security
-
-#       - name: Code Sniffer on MacOS 
-#         run: |
-#           echo "test Code Sniffer on MacOS"
-#           cd api
-#           php ./vendor/bin/phpcs
-#           php ./vendor/bin/phpcbf
-
+      
+      - name: phpunit
+        run: |   
+            php ./vendor/bin/phpunit --testdox --coverage-text --coverage-clover=coverage.xml
+            

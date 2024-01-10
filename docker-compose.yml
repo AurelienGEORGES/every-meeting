@@ -1,6 +1,7 @@
 version: '3'
 services:
   api:
+    container_name: every-meeting-api
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -9,14 +10,14 @@ services:
     volumes:
       - ./api:/var/www/html
     environment:
-      - APP_ENV=dev
-      # - DATABASE_URL="mysql://root:root@127.0.0.1:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"  
+      - XDEBUG_MODE=coverage
     depends_on:
       - db
     networks:
       - mynetwork
 
   client:
+    container_name: every-meeting-client
     build:
       context: ./client
       dockerfile: Dockerfile
