@@ -52,6 +52,12 @@ jobs:
             wget https://get.symfony.com/cli/installer -O - | bash
             sudo mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
 
+      - name: Setup PHP with Xdebug
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: "8.3"
+            coverage: xdebug
+
       - name: Check Security on Ubuntu  
         run: |
             echo "test security on Ubuntu"
@@ -67,4 +73,5 @@ jobs:
       
       - name: phpunit
         run: |   
-            php ./vendor/bin/phpunit
+            php ./vendor/bin/phpunit --testdox --coverage-text --coverage-clover=coverage.xml
+            
