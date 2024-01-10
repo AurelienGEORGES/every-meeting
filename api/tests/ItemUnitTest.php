@@ -27,5 +27,3 @@ class ItemUnitTest extends TestCase
         $this->assertEquals($content, $item->getContent());
     }
 }
-
-
