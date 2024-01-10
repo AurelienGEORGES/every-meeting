@@ -28,10 +28,11 @@ jobs:
   tests-on-api:
     runs-on: ubuntu-latest
     env:
-        MYSQL_USER: root
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: everymeeting
-        DATABASE_URL: "mysql://root:root@db:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"
+        DB_USER: root
+        DB_PASSWORD: root
+        DB_NAME: everymeeting
+        DB_HOST: localhost
+        DATABASE_URL: "mysql://root:root@localhost:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"
     defaults:
         run:
             working-directory: api
@@ -40,6 +41,11 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Start MySQL
+        run: |
+            sudo /etc/init.d/mysql start
+            mysql -e 'CREATE DATABASE IF NOT EXISTS caterflow;' -uroot -proot
 
       - name: Install Symfony CLI
         run: |
@@ -58,9 +64,7 @@ jobs:
             php ./vendor/bin/phpcs
             php ./vendor/bin/phpcbf
 
-      - name: Start MySQL
-        run: |
-            sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE IF NOT EXISTS caterflow;' -uroot -proot
+      
+      - name: phpunit
+        run: |   
             php ./vendor/bin/phpunit
-            
