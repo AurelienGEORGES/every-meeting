@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
         run:
-          working-directory: client
+            working-directory: client
 
     steps:
 
@@ -20,16 +20,16 @@ jobs:
 
       - name: Run ESLint and Prettier on Ubuntu  
         run: |
-          echo "test Lint et Prettier on Ubuntu"
-          npm install
-          npm run format
-          npm run lint
+            echo "test Lint et Prettier on Ubuntu"
+            npm install
+            npm run format
+            npm run lint
 
   tests-on-api:
     runs-on: ubuntu-latest
     defaults:
         run:
-          working-directory: api
+            working-directory: api
 
     steps:
 
@@ -57,3 +57,4 @@ jobs:
         run: |
             sudo /etc/init.d/mysql start
             mysql -e 'CREATE DATABASE IF NOT EXISTS caterflow;' -uroot -proot
+            php ./vendor/bin/phpunit
