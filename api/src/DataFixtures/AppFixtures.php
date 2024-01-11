@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use Faker\Generator;
-use App\Entity\Item;
+use App\Entity\ToDoListItem;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -22,9 +22,14 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i <= 50; $i++) {
-            $item = new Item();
+        for ($i = 1; $i <= 10; $i++) {
+            $item = new ToDoListItem();
             $item->setContent($this->faker->sentence());
+            $item->setPriority($this->faker->numberBetween(1,5));
+            $item->setDeadline($this->faker->dateTime());
+            $item->setDone($this->faker->numberBetween(0,1));
+            $item->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTime()));
+            $item->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTime()));
             $manager->persist($item);
         }
         $manager->flush();
