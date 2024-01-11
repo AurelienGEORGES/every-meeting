@@ -49,8 +49,8 @@ final class ToDoListItemFactory extends ModelFactory
         return [
             'content' => self::faker()->text(),
             'deadline' => self::faker()->dateTime(),
-            'done' => self::faker()->numberBetween(0,3),
-            'priority' => self::faker()->numberBetween(0,5),
+            'done' => self::faker()->numberBetween(0, 3),
+            'priority' => self::faker()->numberBetween(0, 5),
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
             'updatedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime())
         ];

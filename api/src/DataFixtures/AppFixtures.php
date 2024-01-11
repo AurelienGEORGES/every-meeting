@@ -25,9 +25,9 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 10; $i++) {
             $item = new ToDoListItem();
             $item->setContent($this->faker->sentence());
-            $item->setPriority($this->faker->numberBetween(1,5));
+            $item->setPriority($this->faker->numberBetween(1, 5));
             $item->setDeadline($this->faker->dateTime());
-            $item->setDone($this->faker->numberBetween(0,1));
+            $item->setDone($this->faker->numberBetween(0, 1));
             $item->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTime()));
             $item->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTime()));
             $manager->persist($item);

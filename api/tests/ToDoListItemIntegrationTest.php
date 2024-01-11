@@ -34,8 +34,8 @@ class ToDoListItemIntegrationTest extends ApiTestCase
             'priority' => 4,
             'deadline' => new DateTime('2024-08-27 07:29:07'),
             'done' => 1,
-            'createdAt' => new DateTimeImmutable,
-            'updatedAt' => new DateTimeImmutable
+            'createdAt' => new DateTimeImmutable(),
+            'updatedAt' => new DateTimeImmutable()
         ]);
         $client = static::createClient();
         $iri = $this->findIriBy(ToDoListItem::class, ['content' => 'super hello world!']);
