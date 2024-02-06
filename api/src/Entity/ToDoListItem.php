@@ -29,6 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class ToDoListItem
 {
+    #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -39,15 +40,15 @@ class ToDoListItem
     private ?string $content = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $priority = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $deadline = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $done = null;
 
     #[Groups(['read', 'write'])]
@@ -57,6 +58,10 @@ class ToDoListItem
     #[Groups(['read', 'write'])]
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $difficulty = null;
 
     public function getId(): ?int
     {
@@ -131,6 +136,18 @@ class ToDoListItem
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?int
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?int $difficulty): static
+    {
+        $this->difficulty = $difficulty;
 
         return $this;
     }
