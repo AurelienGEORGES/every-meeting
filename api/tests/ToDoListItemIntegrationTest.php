@@ -32,6 +32,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
         ToDoListItemFactory::createOne([
             'content' => 'super hello world!',
             'priority' => 4,
+            'difficulty' => 4,
             'deadline' => new DateTime('2024-08-27 07:29:07'),
             'done' => 1,
             'createdAt' => new DateTimeImmutable(),
@@ -56,6 +57,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
             ['json' => [
                 'content' => 'mega hello world!',
                 'priority' => 3,
+                'difficulty' => 3,
                 'deadline' => '2026-01-11T10:26:00',
                 'done' => 1,
                 'createdAt' => '2023-01-11T10:26:00',
@@ -72,6 +74,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
         ToDoListItemFactory::createOne([
             'content' => 'yo hello world!',
             'priority' => 2,
+            'difficulty' => 2,
             'deadline' => new \DateTimeImmutable('2026-01-11T10:26:00'),
             'done' => 1,
             'createdAt' => new \DateTimeImmutable('2023-01-11T10:26:00'),
@@ -85,6 +88,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
             ['json' => [
                 'content' => 'big hello world!',
                 'priority' => 2,
+                'difficulty' => 2,
                 'deadline' => '2026-01-11T10:26:00',
                 'done' => 1,
                 'createdAt' => '2023-01-11T10:26:00',
@@ -100,6 +104,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
         ToDoListItemFactory::createOne([
             'content' => 'man hello world!',
             'priority' => 2,
+            'difficulty' => 2,
             'deadline' => new \DateTime('2026-01-11T10:26:00'),
             'done' => 1,
             'createdAt' => new \DateTimeImmutable(),
@@ -122,6 +127,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
         ToDoListItemFactory::createOne([
             'content' => 'cool hello world!',
             'priority' => 2,
+            'difficulty' => 2,
             'deadline' => new \DateTime('2026-01-11T10:26:00'),
             'done' => 1,
             'createdAt' => new \DateTimeImmutable(),

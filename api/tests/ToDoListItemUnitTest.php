@@ -11,6 +11,7 @@ class ToDoListItemUnitTest extends TestCase
     {
         $content = 'hello world!';
         $priority = 3;
+        $difficulty = 3;
         $deadline = new \DateTime('1987-07-31T00:00:00+00:00');
         $done = 1;
         $createdAt = new \DateTimeImmutable('1985-07-31T00:00:00+00:00');
@@ -19,6 +20,7 @@ class ToDoListItemUnitTest extends TestCase
         $toDoListItem = new ToDoListItem();
         $toDoListItem->setContent($content);
         $toDoListItem->setPriority($priority);
+        $toDoListItem->setPriority($difficulty);
         $toDoListItem->setDeadline($deadline);
         $toDoListItem->setDone($done);
         $toDoListItem->setCreatedAt($createdAt);
@@ -26,6 +28,7 @@ class ToDoListItemUnitTest extends TestCase
 
         $this->assertEquals($content, $toDoListItem->getContent());
         $this->assertEquals($priority, $toDoListItem->getPriority());
+        $this->assertEquals($difficulty, $toDoListItem->getPriority());
         $this->assertEquals($deadline, $toDoListItem->getDeadline());
         $this->assertEquals($done, $toDoListItem->getDone());
         $this->assertEquals($createdAt, $toDoListItem->getCreatedAt());

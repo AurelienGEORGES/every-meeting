@@ -1,32 +1,34 @@
 // import React from 'react';
+// import axios from 'axios';
 
-// const FormDelete = ({ id, onDelete }) => {
-//   const handleDelete = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await fetch(`http://localhost/api/items/${id}`, {
-//         method: 'DELETE',
-//         headers: {
-//           'Content-Type': 'application/ld+json',
-//         },
-//       });
+// const FormDelete = ({ id, deleteTodo }) => {
 
-//       if (response.ok) {
-//         console.log('Item supprimé avec succès !');
-//         onDelete(id);
-//       } else {
-//         console.error("Erreur lors de la suppression de l'item");
-//       }
-//     } catch (error) {
-//       console.error("Une erreur s'est produite :", error);
-//     }
-//   };
+//     const axiosInstance = axios.create({
+//         baseURL: 'http://localhost/'
+//     });
 
-//   return (
-//     <button type='button' className='btn-create-item' onClick={handleDelete}>
-//       Delete this item
-//     </button>
-//   );
+//     const handleDelete = async () => {
+//         console.log(id)
+//         try {
+//             const response = await axiosInstance.delete(`api/to_do_list_items/${id}`)
+//             if (response.status === 204) {
+//                 console.log('Item deleted successfully!');
+//                 deleteTodo()
+//             }
+
+//             else {
+//                 console.error('Failed to delete item. Server returned:', response.status, response.statusText);
+//             }
+//         } catch (error) {
+//             console.error('An error occurred during the DELETE request:', error);
+//         }
+//     };
+
+//     return (
+//         <button type='button' className='btn-create-item' onClick={() => handleDelete(id)}>
+//             Delete this item
+//         </button>
+//     );
 // };
 
 // export default FormDelete;
