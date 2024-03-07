@@ -1,150 +1,33 @@
-// Variables
-$formBackgroundColor: #f4f4f4;
-$inputBackgroundColor: #fff;
-$inputBorderColor: #ccc;
-$inputPadding: 10px;
-$selectPadding: 8px;
-$submitButtonColor: #4CAF50;
-$submitButtonHoverColor: #45a049;
-$cardBackgroundColor: #fff;
-$cardBorderColor: #ddd;
-$cardBorderRadius: 5px;
-$cardPadding: 15px;
-$gradientStartColor: #ffcc00; // Jaune
-$gradientEndColor: #ff6600; // Orange
+@font-face {
+    font-family: "ProtestRiot-Regular";
+    src: url("/ProtestRiot-Regular.ttf") format("truetype");
+}
+
+body,
+textarea,
+input {
+    font-family: ProtestRiot-Regular;
+}
 
 // Styles
 .todo {
-    background-color: $cardBackgroundColor;
-    border: 1px solid $cardBorderColor;
-    border-radius: $cardBorderRadius;
-    padding: $cardPadding;
-    margin-bottom: 20px;
 
-    label {
-        color: grey;
-        font-size: 1.5rem;
+    textarea::placeholder {
+        color: rgb(75 85 99); //gray-600
+        font-size: 1.25rem;
     }
 
-    textarea {
-        margin-top: 10px;
-        width: 100%;
-        height: 100px;
-        font-size: 1.5rem;
-        box-sizing: border-box;
-        padding-left: 10px;
-        padding-top: 10px;
-        background-color: $formBackgroundColor;
-        border: 3px solid orange;
-        border-radius: 30px;
-        color: grey;
-
-        &:focus {
-            outline: none;
-            border: 3px solid rgb(255, 136, 0);
+    .date-add-todo {
+        &::-webkit-calendar-picker-indicator {
+            font-size: 3rem;
+            filter: invert(0.3);
+            cursor: pointer;
         }
     }
+}
 
-    form {
-        background-color: $formBackgroundColor;
-        padding: 20px;
-        max-width: 400px;
-        margin: 0 auto;
-    
-        .priority-choice {
-            border: 3px grey solid;
-            border-radius: 30px;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            margin: 20px 0px;
-
-            .btn-priority {
-                background-color: white;
-                width: 60px;
-                color: orange;
-                padding: 12px;
-                font-weight: 900;
-                font-size: 2rem;
-                border: 3px solid orange;
-                border-radius: 50%;
-                &:hover {
-                    background-color: rgb(255, 136, 0);
-                    color: grey;
-                }
-                &:focus {
-                    outline: none;
-                }
-            }
-    
-            .number-priority {
-                color: grey;
-                font-size:  1.5rem; 
-            }
-
-            .center-down-up {
-                display: flex;
-                align-items: center;
-            }
-        }
-
-        .btn-create-item {
-            background-color: orange;
-            color: grey; 
-            border: none;
-            border-radius: 30px;
-            margin-top : 10px;
-            font-size: 1.5rem;
-
-            &:hover {
-                background-color: rgb(255, 136, 0);
-                cursor: pointer;
-            }
-        }
-
-        .center-btn-add-todo {
-            display: flex;
-            justify-content: center;
-        }
-
-        .date-add-todo {
-            padding: 20px;
-            font-size:  1.5rem;
-            width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-            margin-top: 10px;
-            color: grey;
-            background-color: $formBackgroundColor;
-            border: grey solid 3px;
-            border-radius: 30px;
-            
-            &::selection,
-            &::-moz-selection {
-              background-color: orange; // Couleur de fond de la sélection
-              color: #fff; // Couleur du texte de la sélection
-            }
-
-            &::-webkit-calendar-picker-indicator {
-                font-size: 3rem;
-                filter: invert(0.6); // Inverse les couleurs (peut changer la couleur de l'icône)
-                cursor: pointer; // Changement de curseur au survol
-            }
-        }
-    }
-
-    .text-todo {
-        color:grey;
-        font-size: 1.5rem;
-    }
-
-    progress {
-        width: 100%;
-        height: 40px;
-        background-color: $formBackgroundColor;
-        &::-webkit-progress-value {
-            background-color: orange;
-          }
+progress {
+    &::-webkit-progress-value {
+        background-color: orange;
     }
 }

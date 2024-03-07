@@ -1,64 +1,69 @@
-// import React, { useState, useEffect } from 'react';
-// import FormAdd from './FormAdd';
-// import FormDelete from './FormDelete';
-// import FormUpdate from './FormUpdate';
-// import Item from './Item';
-// import axios from 'axios';
+import React, { useState } from 'react';
+import FormAdd from './FormAdd';
+import FormDelete from './FormDelete';
+import FormUpdate from './FormUpdate';
+import Item from './Item';
+import { useLoaderData } from 'react-router-dom';
 
-// const Todolist = () => {
-//     const [todos, setTodos] = useState([]);
+const Todolist = () => {
 
-//     const axiosInstance = axios.create({
-//         baseURL: 'http://localhost/'
-//     });
+    const loaderData = useLoaderData()
 
-//     const fetchData = async () => {
-//         try {
-//             const response = await axiosInstance.get('api/to_do_list_items')
-//             if (response.status === 200) {
-//                 setTodos(response.data);
-//             }
-//         } catch (error) {
-//             console.error('An error occurred during the GET request:', error);
-//         }
-//     };
+    const [todos, setTodos] = useState(loaderData);
 
-//     useEffect(() => {
-//         fetchData();
-//     }, []);
+    const addTodo = (newTodo) => {
+        setTodos([...todos, newTodo]);
+    };
 
-//     const addTodo = (newTodo) => {
-//         setTodos([...todos, newTodo]);
-//     };
+    const deleteTodo = (id) => {
+        const deleteTodo = todos.filter((todo) => todo.id !== id);
+        setTodos(deleteTodo);
+    };
 
-//     const deleteTodo = (id) => {
-//         const deleteTodos = todos.filter((todo) => todo.id !== id);
-//         setTodos(deleteTodos);
-//     };
+    const updateTodo = (id, updatedTodo) => {
+        console.log(updatedTodo)
+        const updatedTodos = todos.map(todo => {
+            if (todo.id === id) {
+                console.log(todo.id)
+                return { ...todo, ...updatedTodo };
+            }
+            return todo;
+        });
+    
+        setTodos(updatedTodos);
+    };
 
-//     const updateTodo = () => {
-//         fetchData()
-//     }
+    return (
+        <div>
+            <h1 className="text-2xl md:text-4xl text-nav text-center mx-3 my-10">Voici votre liste To Do. Ici vous pourrez organiser, gérer et prioriser vos tâches.</h1>
+            <div>
+                <FormAdd addTodo={addTodo} />
+            </div>
+            <div className='flex flex-wrap justify-center'>
+                {todos && todos.map((todo, index) => (
 
-//     return (
-//         <>
-//             <FormAdd addTodo={addTodo} />
-//             {todos && todos.map((todo, index) => (
-//                 <div key={index}>
-//                     <Item
-//                         content={todo.content}
-//                         priority={todo.priority}
-//                         difficulty={todo.difficulty}
-//                         deadline={todo.deadline}
-//                         done={todo.done}
-//                         id={todo.id}
-//                     />
-//                     <FormDelete id={todo.id} deleteTodo={() => deleteTodo(todo.id)} />
-//                     <FormUpdate id={todo.id} content={todo.content} priority={todo.priority} difficulty={todo.difficulty} deadline={todo.deadline} done={todo.done} createdAt={todo.createdAt} updateTodo={updateTodo} />
-//                 </div>
-//             ))}
-//         </>
-//     );
-// };
+                    <div key={index} className='border-solid border-4 border-gray-600 rounded-xl basis-1/5 p-3 m-5'>
+                        <Item
+                            content={todo.content}
+                            priority={todo.priority}
+                            difficulty={todo.difficulty}
+                            deadline={todo.deadline}
+                            done={todo.done}
+                            id={todo.id}
+                        />
+                        <div className='flex flex-col'>
+                            <div className='m-1'>
+                                <FormDelete id={todo.id} deleteTodo={() => deleteTodo(todo.id)} />
+                            </div>
+                            <div className='m-1'>
+                                <FormUpdate id={todo.id} content={todo.content} priority={todo.priority} difficulty={todo.difficulty} deadline={todo.deadline} done={todo.done} createdAt={todo.createdAt} updateTodo={updateTodo} />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
-// export default Todolist;
+export default Todolist;
