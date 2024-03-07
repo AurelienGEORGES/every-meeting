@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Kanban = () => {
-  return (
-    <h1>Kanban</h1>
-  )
-}
+  return <h1>Kanban</h1>;
+};
 
-export default Kanban
+export default Kanban;

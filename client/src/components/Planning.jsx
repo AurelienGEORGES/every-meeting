@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Planning = () => {
-  return (
-    <div>Planning</div>
-  )
-}
+  return <div>Planning</div>;
+};
 
-export default Planning
+export default Planning;

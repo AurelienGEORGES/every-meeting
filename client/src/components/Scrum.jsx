@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Scrum = () => {
-  return (
-    <div>Scrum</div>
-  )
-}
+  return <div>Scrum</div>;
+};
 
-export default Scrum
+export default Scrum;
