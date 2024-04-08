@@ -39,7 +39,7 @@ const FormDelete = ({ id, deleteTodo }) => {
           <img src={deletetodopng} alt='corbeille' className='img-fluid  w-[45px]' />
         </div>
         <div className='flex items-center'>
-          <p>Enlever</p>
+          <p className="ps-1">Enlever</p>
         </div>
       </div>
     </button>

@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ToDoListItemRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ToDoListItemRepository::class)]
 #[ApiResource(
@@ -37,18 +38,24 @@ class ToDoListItem
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'votre todo ne peut pas être vide')]
+    #[Assert\Length(min: 2, minMessage: 'votre todo dois faire au minimum 2 caractères')]
     private ?string $content = null;
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    #[Assert\Length(min: 1, minMessage: 'la priorité minimum vaut 1')]
+    #[Assert\Length(max: 5, maxMessage: 'la priorité maximum vaut 5')]
     private ?int $priority = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $deadline = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $deadline = null;
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    #[Assert\Length(min: 1, minMessage: 'la réalisation minimum vaut 1')]
+    #[Assert\Length(max: 5, maxMessage: 'la réalisation maximum vaut 5')]
     private ?int $done = null;
 
     #[Groups(['read', 'write'])]
@@ -61,6 +68,8 @@ class ToDoListItem
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    #[Assert\Length(min: 1, minMessage: 'la difficultée minimum vaut 1')]
+    #[Assert\Length(max: 5, maxMessage: 'la difficultée maximum vaut 5')]
     private ?int $difficulty = null;
 
     public function getId(): ?int
@@ -92,12 +101,12 @@ class ToDoListItem
         return $this;
     }
 
-    public function getDeadline(): ?\DateTimeInterface
+    public function getDeadline(): ?\DateTimeImmutable
     {
         return $this->deadline;
     }
 
-    public function setDeadline(\DateTimeInterface $deadline): static
+    public function setDeadline(\DateTimeImmutable $deadline): static
     {
         $this->deadline = $deadline;
 
