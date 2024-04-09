@@ -26,8 +26,24 @@ input {
     }
 }
 
+// progress {
+//     &::-webkit-progress-value {
+//         background-color: orange;
+//     }
+// }
+
+/* Stylisation de la barre de progression */
 progress {
-    &::-webkit-progress-value {
-        background-color: orange;
-    }
+    width: 200px;
+    height: 20px;
+    border: 1px solid rgb(75 85 99);
+    border-radius: 2px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #2F9B08;
+}
+
+progress::-moz-progress-bar {
+    background-color: #2F9B08;
 }

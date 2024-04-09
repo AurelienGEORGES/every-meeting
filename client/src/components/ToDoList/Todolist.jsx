@@ -56,10 +56,10 @@ const Todolist = () => {
                 id={todo.id}
               />
               <div className='flex flex-col'>
-                <div className='m-1'>
+                <div className='my-1'>
                   <FormDelete id={todo.id} deleteTodo={() => deleteTodo(todo.id)} />
                 </div>
-                <div className='m-1'>
+                <div className='my-1'>
                   <FormUpdate
                     id={todo.id}
                     content={todo.content}

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import deletetodopng from '../assets/img-home/delete-todo.png';
+import deletetodopng from '../../assets/img-home/delete-todo.png';
 
 const FormDelete = ({ id, deleteTodo }) => {
   const axiosInstance = axios.create({
@@ -36,7 +36,7 @@ const FormDelete = ({ id, deleteTodo }) => {
     >
       <div className='flex flex-row'>
         <div>
-          <img src={deletetodopng} alt='corbeille' className='img-fluid  w-[45px]' />
+          <img src={deletetodopng} alt='corbeille' className='h-[45px] w-[45px]' />
         </div>
         <div className='flex items-center'>
           <p className='ps-1'>Enlever</p>

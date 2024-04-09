@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import ClipLoader from 'react-spinners/ClipLoader';
-import addtodopng from '../assets/img-home/add-todo.png';
+import addtodopng from '../../assets/img-home/add-todo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import modifytodomodalpng from '../assets/img-home/modify-todo-modal.png';
-import modifytodomodalpluspng from '../assets/img-home/plus.png';
-import modifytodomodalminuspng from '../assets/img-home/minus.png';
+import modifytodomodalpng from '../../assets/img-home/modify-todo-modal.png';
+import modifytodomodalpluspng from '../../assets/img-home/plus.png';
+import modifytodomodalminuspng from '../../assets/img-home/minus.png';
 
 const customStyles = {
   content: {
@@ -158,7 +158,7 @@ const FormAdd = ({ addTodo }) => {
         >
           <div className='flex flex-row'>
             <div>
-              <img src={addtodopng} alt='plus' className='img-fluid w-[45px]' />
+              <img src={addtodopng} alt='plus' className='h-[45px] w-[45px]' />
             </div>
             <div className='flex items-center'>
               <p className='ps-1'>Ajouter</p>

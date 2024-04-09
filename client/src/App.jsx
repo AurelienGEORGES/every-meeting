@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
-import Todolist from './components/Todolist';
+import Todolist from './components/ToDoList/Todolist';
 import Home from './components/Home';
 import Scrum from './components/Scrum';
 import Planning from './components/Planning';
