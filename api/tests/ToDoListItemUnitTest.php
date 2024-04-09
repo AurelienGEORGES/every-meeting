@@ -12,7 +12,7 @@ class ToDoListItemUnitTest extends TestCase
         $content = 'hello world!';
         $priority = 3;
         $difficulty = 3;
-        $deadline = new \DateTime('1987-07-31T00:00:00+00:00');
+        $deadline = new \DateTimeImmutable('1987-07-31T00:00:00+00:00');
         $done = 1;
         $createdAt = new \DateTimeImmutable('1985-07-31T00:00:00+00:00');
         $updatedAt = new \DateTimeImmutable('1986-07-31T00:00:00+00:00');

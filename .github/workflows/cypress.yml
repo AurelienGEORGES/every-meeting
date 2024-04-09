@@ -1,0 +1,45 @@
+name: test e2e with Cypress
+
+on: 
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  cypress-test:
+    runs-on: ubuntu-latest
+    env:
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: everymeeting
+      DB_HOST: localhost
+      DATABASE_URL: "mysql://root:root@localhost:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"
+    steps:
+      - uses: actions/checkout@v3
+            
+      - name: Start MySQL
+        run: |
+            sudo /etc/init.d/mysql start
+            mysql -e 'CREATE DATABASE IF NOT EXISTS caterflow;' -uroot -proot
+
+      - name: Install Symfony CLI
+        run: |
+            wget https://get.symfony.com/cli/installer -O - | bash
+            sudo mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
+
+      - name: Start server
+        run: |
+          cd api
+          composer install --no-interaction --env=TEST
+          symfony console doctrine:migration:migrate --no-interaction --env=TEST
+          symfony console doctrine:fixtures:load --no-interaction --env=TEST
+          symfony server:start &
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: client
+          build: npm run build
+          start: npm start
+          wait-on-timeout: 500
+
