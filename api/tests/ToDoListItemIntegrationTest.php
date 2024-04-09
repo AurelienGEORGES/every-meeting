@@ -33,7 +33,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
             'content' => 'super hello world!',
             'priority' => 4,
             'difficulty' => 4,
-            'deadline' => new DateTime('2024-08-27 07:29:07'),
+            'deadline' => new \DateTimeImmutable('2026-01-11T10:26:00'),
             'done' => 1,
             'createdAt' => new DateTimeImmutable(),
             'updatedAt' => new DateTimeImmutable()
@@ -105,7 +105,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
             'content' => 'man hello world!',
             'priority' => 2,
             'difficulty' => 2,
-            'deadline' => new \DateTime('2026-01-11T10:26:00'),
+            'deadline' => new \DateTimeImmutable('2026-01-11T10:26:00'),
             'done' => 1,
             'createdAt' => new \DateTimeImmutable(),
             'updatedAt' => new \DateTimeImmutable()
@@ -128,7 +128,7 @@ class ToDoListItemIntegrationTest extends ApiTestCase
             'content' => 'cool hello world!',
             'priority' => 2,
             'difficulty' => 2,
-            'deadline' => new \DateTime('2026-01-11T10:26:00'),
+            'deadline' => new \DateTimeImmutable('2026-01-11T10:26:00'),
             'done' => 1,
             'createdAt' => new \DateTimeImmutable(),
             'updatedAt' => new \DateTimeImmutable()
