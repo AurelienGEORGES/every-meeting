@@ -30,9 +30,9 @@ jobs:
       - name: Start server
         run: |
           cd api
-          composer install --no-interaction --env=TEST
-          symfony console doctrine:migration:migrate --no-interaction --env=TEST
-          symfony console doctrine:fixtures:load --no-interaction --env=TEST
+          composer install --no-interaction 
+          symfony console doctrine:migration:migrate --no-interaction 
+          symfony console doctrine:fixtures:load --no-interaction
           symfony server:start &
 
       - name: Run Cypress
