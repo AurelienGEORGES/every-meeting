@@ -7,9 +7,9 @@ import Item from './Item';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const Todolist = () => {
-// const loaderData = useLoaderData();
+  // const loaderData = useLoaderData();
 
-//   const [todos, setTodos] = useState(loaderData);
+  //   const [todos, setTodos] = useState(loaderData);
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState('');
 

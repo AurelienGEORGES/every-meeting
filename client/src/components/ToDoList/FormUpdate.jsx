@@ -148,7 +148,7 @@ const FormUpdate = ({
         console.log('Todo updated successfully!');
         setLoading(false);
         updateTodo(id, updatedTodo);
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
       console.error('An error occurred during the PUT request:', error);
