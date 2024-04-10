@@ -3,14 +3,15 @@ import FormAdd from './FormAdd';
 import FormDelete from './FormDelete';
 import FormUpdate from './FormUpdate';
 import Item from './Item';
-import { useLoaderData } from 'react-router-dom';
+// import { useLoaderData } from 'react-router-dom';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const Todolist = () => {
-  const loaderData = useLoaderData();
+// const loaderData = useLoaderData();
 
-  const [todos, setTodos] = useState(loaderData);
+//   const [todos, setTodos] = useState(loaderData);
   const [isLoading, setIsLoading] = useState(true);
+  const [todos, setTodos] = useState('');
 
   useEffect(() => {
     const fetchData = () => {
