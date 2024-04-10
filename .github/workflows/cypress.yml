@@ -37,7 +37,7 @@ jobs:
 
       - name: Debug
         run: |
-          curl http://127.0.0.1:80/api/to_do_list_items
+          curl http://127.0.0.1:8000/api/to_do_list_items
 
       - name: Run Cypress
         uses: cypress-io/github-action@v6
