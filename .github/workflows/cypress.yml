@@ -35,6 +35,10 @@ jobs:
           symfony server:start &
         working-directory: api
 
+      - name: Debug
+        run: |
+          curl http://localhost/api/to_do_list_items
+
       - name: Run Cypress
         uses: cypress-io/github-action@v6
         with:
