@@ -39,7 +39,9 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: client
+          wait-on: "http://localhost:8000/"
+          wait-on-timeout: 3000
+          browser: chrome
           build: npm run build
           start: npm run dev
-          wait-on-timeout: 500
 
