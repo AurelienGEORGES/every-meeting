@@ -31,12 +31,12 @@ jobs:
             sudo mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
 
       - name: Start server
-        working-directory: api
         run: |
           composer install --no-interaction 
           symfony console doctrine:migration:migrate --no-interaction 
           symfony console doctrine:fixtures:load --no-interaction
           symfony server:start &
+        working-directory: api
 
       - name: Run Cypress
         uses: cypress-io/github-action@v6

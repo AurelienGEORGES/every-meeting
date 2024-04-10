@@ -8,13 +8,13 @@ describe('accueil', () => {
 describe('todolist add', () => {
     it('successfully add', () => {
         cy.visit('http://localhost:3000/to-do-list')
-        cy.wait(10000)
+        cy.wait(15000)
         cy.get('button[data-btn-add="add"]').should('exist').click()
         cy.get('textarea[id="create-item-content"]').type('test add cypress')
         cy.get('input[type="datetime-local"]').type('2030-11-22T15:00')
         cy.get('button[type="submit"]').click()
-        cy.wait(10000)
-        // cy.get('button[id="btn-close-modal-add"]').click()
+        cy.wait(15000)
+        cy.get('button[id="btn-close-modal-add"]').click()
         cy.contains('p', 'test add cypress').should('exist')
     })
 })
