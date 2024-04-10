@@ -90,7 +90,7 @@ const FormAdd = ({ addTodo }) => {
     setLoading(true);
     console.log(selectedDateTime);
     try {
-      const response = await fetch('http://localhost/api/to_do_list_items', {
+      const response = await fetch('http://localhost:8000/api/to_do_list_items', {
         method: 'POST',
         headers: {
           'content-type': 'application/ld+json; charset=utf-8',

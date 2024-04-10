@@ -7,7 +7,7 @@ const FormDelete = ({ id, deleteTodo }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost/',
+    baseURL: 'http://localhost:8000/',
   });
 
   const handleDelete = async () => {

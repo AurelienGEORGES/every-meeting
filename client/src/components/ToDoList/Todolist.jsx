@@ -15,7 +15,7 @@ const Todolist = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch('http://localhost/api/to_do_list_items')
+      fetch('http://localhost:8000/api/to_do_list_items')
         .then((response) => response.json())
         .then((data) => {
           setTodos(data); // Update state with fetched data

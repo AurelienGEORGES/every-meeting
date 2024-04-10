@@ -114,7 +114,7 @@ const FormUpdate = ({
   };
 
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost/',
+    baseURL: 'http://localhost:8000/',
   });
 
   const handleSubmitUpdate = async (e) => {
