@@ -32,7 +32,7 @@ jobs:
           composer install --no-interaction 
           symfony console doctrine:migrations:migrate --no-interaction 
           symfony console doctrine:fixtures:load --no-interaction
-          symfony server:start &
+          symfony server:start *:80 &
         working-directory: api
 
       - name: Debug

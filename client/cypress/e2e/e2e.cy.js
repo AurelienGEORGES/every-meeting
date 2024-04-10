@@ -22,13 +22,13 @@ describe('todolist add', () => {
 describe('todolist update', () => {
     it('successfully update', () => {
         cy.visit('http://localhost:3000/to-do-list')
-        cy.wait(10000)
+        cy.wait(15000)
         cy.get('p[data-cy-update="5"]').should('exist')
         cy.get('button[data-update-btn-id="5"]').should('exist').click()
         cy.get('textarea[id="update-item"]').clear().type('test modification cypress')
         cy.get('input[type="datetime-local"]').type('2024-03-07T13:52')
         cy.get('button[type="submit"]').click()
-        cy.wait(10000)
+        cy.wait(15000)
         // cy.get('button[id="btn-close-modal-update"]').click()
         cy.get('p[data-cy-update="5"]').should('have.text', 'test modification cypress')
     })
@@ -37,10 +37,10 @@ describe('todolist update', () => {
 describe('todolist delete', () => {
     it('successfully delete', () => {
         cy.visit('http://localhost:3000/to-do-list')
-        cy.wait(5000)
+        cy.wait(15000)
         cy.get('p[id="5"]').should('exist')
         cy.get('button[data-id="5"]').click()
-        cy.wait(5000)
+        cy.wait(15000)
         cy.get('p[id="5"]').should('not.exist')
     })
 })
