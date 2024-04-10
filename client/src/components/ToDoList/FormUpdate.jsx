@@ -59,7 +59,7 @@ const FormUpdate = ({
     setIsOpen(false);
   }
 
-  const [updatedValue, setupdatedValue] = useState('');
+  const [updatedValue, setupdatedValue] = useState(content);
   const [updatedDateTime, setUpdatedDateTime] = useState(deadline);
   const [updatedPriority, setUpdatedPriority] = useState(priority);
   const [updatedDifficulty, setUpdatedDifficulty] = useState(difficulty);
