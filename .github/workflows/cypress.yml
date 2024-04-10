@@ -30,7 +30,7 @@ jobs:
       - name: Start server
         run: |
           composer install --no-interaction 
-          symfony console doctrine:migration:migrate --no-interaction 
+          symfony console doctrine:migrations:migrate --no-interaction 
           symfony console doctrine:fixtures:load --no-interaction
           symfony server:start &
         working-directory: api
