@@ -10,7 +10,7 @@ import teamMeeting7 from '../assets/img-home/team-meeting-7.webp';
 import teamMeeting8 from '../assets/img-home/team-meeting-8.webp';
 import teamMeeting9 from '../assets/img-home/team-meeting-9.jpg';
 
-const Home = () => {
+function Home() {
   return (
     <div className='flex justify-center flex-col'>
       <div className='flex justify-end'>
@@ -22,7 +22,7 @@ const Home = () => {
         Every Meeting
       </h1>
       <p className='text-md md:text-xl text-nav text-center mx-3 my-5'>
-        Voici l'application qui permet de gérer ses projets et ses réunions en totale collaboration.
+        Voici l&apos;application qui permet de gérer ses projets et ses réunions en totale collaboration.
       </p>
       <div className='w-full flex justify-center'>
         <img src={teamMeeting1} alt='équipe de travail' className='w-1/2 img-fluid rounded-xl' />
@@ -32,7 +32,7 @@ const Home = () => {
           Ensemble nous pouvons tout faire!
         </h2>
         <p className='text-md md:text-xl text-sun text-center mx-3 my-5'>
-          Bienvenue sur l'application qui permet de gérer sa collaboration en équipe, sa gestion du
+          Bienvenue sur l&apos;application qui permet de gérer sa collaboration en équipe, sa gestion du
           temps et sa plannification de réunion.
         </p>
       </div>
@@ -50,7 +50,7 @@ const Home = () => {
         </p>
       </div>
       <div className='flex justify-center my-5'>
-        <button className='text-xl text-white bg-sun hover:bg-green-200 hover:text-sun p-3 rounded-full'>
+        <button type="button" className='text-xl text-white bg-sun hover:bg-green-200 hover:text-sun p-3 rounded-full'>
           Inscription
         </button>
       </div>
@@ -64,7 +64,7 @@ const Home = () => {
         </p>
       </div>
       <div className='flex justify-center my-3'>
-        <button className='text-xl text-white bg-sun hover:bg-yellow-300 hover:text-sun p-3 rounded-full'>
+        <button type="button" className='text-xl text-white bg-sun hover:bg-yellow-300 hover:text-sun p-3 rounded-full'>
           Tableau de bord
         </button>
       </div>
@@ -74,20 +74,20 @@ const Home = () => {
       <div>
         <p className='text-md md:text-xl text-king text-center mx-3 my-5'>
           Vous avez une start up, une entreprise ou tous autres types de structures possédant
-          plusieurs équipes qui doivent collaborer ensemble? Voici l'option payante avec tous ce
-          qu'il faut pour coordonner, superviser et orchestrer de multiples équipes!
+          plusieurs équipes qui doivent collaborer ensemble? Voici l&apos;option payante avec tous ce
+          qu&apos;il faut pour coordonner, superviser et orchestrer de multiples équipes!
         </p>
       </div>
       <div className='flex justify-center my-3'>
-        <button className='text-xl text-white bg-king hover:bg-red-200 hover:text-king p-3 rounded-full'>
-          Gestion d'équipes
+        <button type="button" className='text-xl text-white bg-king hover:bg-red-200 hover:text-king p-3 rounded-full'>
+          Gestion d&apos;équipes
         </button>
       </div>
       <div>
         <p className='text-md md:text-xl text-nav text-center mx-3 my-5'>
           Vous débutez et vous ne savez pas par ou commencer? voici chaque section accompagnée par
-          une description de la méthode et d'un petit tutoriel de prise en main rapide. Profitez en
-          c'est cadeau! Vous allez devenir un expert en gestion de projet!
+          une description de la méthode et d&apos;un petit tutoriel de prise en main rapide. Profitez en
+          c&apos;est cadeau! Vous allez devenir un expert en gestion de projet!
         </p>
       </div>
       <div className='w-full flex justify-center'>
@@ -107,7 +107,7 @@ const Home = () => {
         </ol>
       </div>
       <div className='flex justify-center my-3'>
-        <button className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
+        <button type="button" className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
           Chat
         </button>
       </div>
@@ -121,13 +121,13 @@ const Home = () => {
             - définissez les tâches à faire.
           </li>
           <li className='text-md md:text-xl text-center m-3 text-nav'>
-            - définissez une échéance, une priorité, une difficulté et l'avancement de chacunes de
+            - définissez une échéance, une priorité, une difficulté et l&apos;avancement de chacunes de
             ces tâches.
           </li>
         </ol>
       </div>
       <div className='flex justify-center my-3'>
-        <button className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
+        <button type="button" className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
           ToDo liste
         </button>
       </div>
@@ -149,7 +149,7 @@ const Home = () => {
         </ol>
       </div>
       <div className='flex justify-center my-3'>
-        <button className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
+        <button type="button" className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
           Planning
         </button>
       </div>
@@ -162,7 +162,7 @@ const Home = () => {
         </p>
         <ol>
           <li className='text-md md:text-xl text-center m-3 text-nav'>
-            - définissez des "tickets" que vous devez réaliser.
+            - définissez des &quot;tickets&quot; que vous devez réaliser.
           </li>
           <li className='text-md md:text-xl text-center m-3 text-nav'>
             - organisez vos tickets en colonnes.
@@ -173,7 +173,7 @@ const Home = () => {
         </ol>
       </div>
       <div className='flex justify-center my-3'>
-        <button className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
+        <button type="button" className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
           Kanban
         </button>
       </div>
@@ -186,19 +186,19 @@ const Home = () => {
         </p>
         <ol>
           <li className='text-md md:text-xl text-center m-3 text-nav'>
-            - définissez des "sprints" que vous devez accomplir en quelques semaines.
+            - définissez des &quot;sprints&quot; que vous devez accomplir en quelques semaines.
           </li>
           <li className='text-md md:text-xl text-center m-3 text-nav'>
-            - ajustez votre "backlog" suivant les tâches que vous devez réaliser dans le temps
+            - ajustez votre &quot;backlog&quot; suivant les tâches que vous devez réaliser dans le temps
             impartit.
           </li>
           <li className='text-md md:text-xl text-center m-3 text-nav'>
-            - organisez des "rituels scrum" pour suivre l'avancement du projet.
+            - organisez des &quot;rituels scrum&quot; pour suivre l&apos;avancement du projet.
           </li>
         </ol>
       </div>
       <div className='flex justify-center my-3'>
-        <button className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
+        <button type="button" className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav p-3 rounded-full'>
           Scrum
         </button>
       </div>

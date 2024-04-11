@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Planning = () => {
-  return <div>Planning</div>;
+function Planning() {
+    return (
+        <div>
+            <h1>Planning</h1>
+        </div>
+    );
 };
 
 export default Planning;

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 import FormAdd from './FormAdd';
 import FormDelete from './FormDelete';
 import FormUpdate from './FormUpdate';
 import Item from './Item';
-// import { useLoaderData } from 'react-router-dom';
-import ClipLoader from 'react-spinners/ClipLoader';
 
-const Todolist = () => {
-  // const loaderData = useLoaderData();
+function Todolist() {
 
-  //   const [todos, setTodos] = useState(loaderData);
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState('');
 
@@ -18,13 +15,9 @@ const Todolist = () => {
       fetch('http://localhost:8000/api/to_do_list_items')
         .then((response) => response.json())
         .then((data) => {
-          setTodos(data); // Update state with fetched data
-          setIsLoading(false); // Set loading to false after data retrieval
+          setTodos(data); 
+          setIsLoading(false); 
         })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-          setIsLoading(false); // Set loading to false in case of error
-        });
     };
     fetchData();
   }, []);
@@ -34,20 +27,17 @@ const Todolist = () => {
   };
 
   const deleteTodo = (id) => {
-    const deleteTodo = todos.filter((todo) => todo.id !== id);
-    setTodos(deleteTodo);
+    const deletedTodo = todos.filter((todo) => todo.id !== id);
+    setTodos(deletedTodo);
   };
 
   const updateTodo = (id, updatedTodo) => {
-    console.log(updatedTodo);
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        console.log(todo.id);
         return { ...todo, ...updatedTodo };
       }
       return todo;
     });
-
     setTodos(updatedTodos);
   };
 
@@ -70,9 +60,9 @@ const Todolist = () => {
           />
         ) : (
           todos &&
-          todos.map((todo, index) => (
+          todos.map((todo) => (
             <div
-              key={index}
+              key={todo.id}
               className='border-solid border-4 border-gray-600 rounded-xl basis-1/5 p-3 m-5'
             >
               <Item
