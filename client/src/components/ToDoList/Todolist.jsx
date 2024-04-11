@@ -6,7 +6,6 @@ import FormUpdate from './FormUpdate';
 import Item from './Item';
 
 function Todolist() {
-
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState('');
 
@@ -15,9 +14,9 @@ function Todolist() {
       fetch('http://localhost:8000/api/to_do_list_items')
         .then((response) => response.json())
         .then((data) => {
-          setTodos(data); 
-          setIsLoading(false); 
-        })
+          setTodos(data);
+          setIsLoading(false);
+        });
     };
     fetchData();
   }, []);
@@ -96,6 +95,6 @@ function Todolist() {
       </div>
     </div>
   );
-};
+}
 
 export default Todolist;

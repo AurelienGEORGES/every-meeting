@@ -23,7 +23,11 @@ function Nav() {
   return (
     <header className='relative'>
       <nav className='md:sticky md:top-0 md:left-0 md:h-screen bg-nav sticky top-0 flex flex-col'>
-        <button type="button" className='p-3 focus:outline-none hidden md:block' onClick={toggleNavbar}>
+        <button
+          type='button'
+          className='p-3 focus:outline-none hidden md:block'
+          onClick={toggleNavbar}
+        >
           {isOpen ? (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -56,7 +60,11 @@ function Nav() {
             </svg>
           )}
         </button>
-        <button type="button" className='p-3 focus:outline-none md:hidden' onClick={toggleNavbarBurger}>
+        <button
+          type='button'
+          className='p-3 focus:outline-none md:hidden'
+          onClick={toggleNavbarBurger}
+        >
           {isOpenBurger ? (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -151,6 +159,6 @@ function Nav() {
       </nav>
     </header>
   );
-};
+}
 
 export default Nav;
