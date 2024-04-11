@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import modifytodopng from '../../assets/img-home/modify-todo.png';
 import modifytodomodalpng from '../../assets/img-home/modify-todo-modal.png';
@@ -22,16 +23,18 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const FormUpdate = ({
-  id,
-  updateTodo,
-  content,
-  priority,
-  difficulty,
-  deadline,
-  done,
-  createdAt,
-}) => {
+function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, done, createdAt }) {
+  FormUpdate.propTypes = {
+    content: PropTypes.string.isRequired, // Required string
+    priority: PropTypes.number.isRequired, // Required number
+    difficulty: PropTypes.number.isRequired, // Required number
+    deadline: PropTypes.string.isRequired, // Required string (assuming deadline is a string representation)
+    done: PropTypes.number.isRequired, // Required number
+    id: PropTypes.number.isRequired,
+    updateTodo: PropTypes.func.isRequired, // Required string
+    createdAt: PropTypes.string.isRequired,
+  };
+
   const rawdeadline = new Date(deadline);
   rawdeadline.setHours(rawdeadline.getHours() - 2);
 
@@ -50,23 +53,23 @@ const FormUpdate = ({
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-    setMessageSuccess('');
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
 
-  const [updatedValue, setupdatedValue] = useState('');
+  const [updatedValue, setupdatedValue] = useState(content);
   const [updatedDateTime, setUpdatedDateTime] = useState(deadline);
   const [updatedPriority, setUpdatedPriority] = useState(priority);
   const [updatedDifficulty, setUpdatedDifficulty] = useState(difficulty);
   const [updatedDone, setUpdatedDone] = useState(done);
   const [MessageSuccess, setMessageSuccess] = useState('');
   const [loading, setLoading] = useState(false);
-  let color = '#456123';
+  const color = '#456123';
+
+  function openModal() {
+    setIsOpen(true);
+    setMessageSuccess('');
+  }
 
   const handleInputUpdate = (e) => {
     setupdatedValue(e.target.value);
@@ -74,86 +77,71 @@ const FormUpdate = ({
 
   const handleDateTimeUpdate = (e) => {
     setUpdatedDateTime(e.target.value);
-    console.log(updatedDateTime);
   };
 
   const handlePriorityDown = () => {
-    if (parseInt(updatedPriority) > 1) {
-      setUpdatedPriority(parseInt(updatedPriority) - 1);
+    if (parseInt(updatedPriority, 10) > 1) {
+      setUpdatedPriority(parseInt(updatedPriority, 10) - 1);
     }
   };
 
   const handlePriorityUp = () => {
-    if (parseInt(updatedPriority) < 5) {
-      setUpdatedPriority(parseInt(updatedPriority) + 1);
+    if (parseInt(updatedPriority, 10) < 5) {
+      setUpdatedPriority(parseInt(updatedPriority, 10) + 1);
     }
   };
 
   const handleDifficultyDown = () => {
-    if (parseInt(updatedDifficulty) > 1) {
-      setUpdatedDifficulty(parseInt(updatedDifficulty) - 1);
+    if (parseInt(updatedDifficulty, 10) > 1) {
+      setUpdatedDifficulty(parseInt(updatedDifficulty, 10) - 1);
     }
   };
 
   const handleDifficultyUp = () => {
-    if (parseInt(updatedDifficulty) < 5) {
-      setUpdatedDifficulty(parseInt(updatedDifficulty) + 1);
+    if (parseInt(updatedDifficulty, 10) < 5) {
+      setUpdatedDifficulty(parseInt(updatedDifficulty, 10) + 1);
     }
   };
 
   const handleDoneDown = () => {
-    if (parseInt(updatedDone) > 1) {
-      setUpdatedDone(parseInt(updatedDone) - 1);
+    if (parseInt(updatedDone, 10) > 1) {
+      setUpdatedDone(parseInt(updatedDone, 10) - 1);
     }
   };
 
   const handleDoneUp = () => {
-    if (parseInt(updatedDone) < 5) {
-      setUpdatedDone(parseInt(updatedDone) + 1);
+    if (parseInt(updatedDone, 10) < 5) {
+      setUpdatedDone(parseInt(updatedDone, 10) + 1);
     }
   };
 
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost/',
+    baseURL: 'http://localhost:8000/',
   });
 
   const handleSubmitUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(id);
-    console.log(updatedValue);
-    console.log(parseInt(updatedPriority));
-    console.log(parseInt(updatedDifficulty));
-    console.log(updatedDateTime);
-    console.log(parseInt(updatedDone));
-    console.log({ createdAt });
-    console.log(new Date().toISOString());
-    try {
-      const updatedTodo = {
-        content: updatedValue,
-        priority: parseInt(updatedPriority),
-        difficulty: parseInt(updatedPriority),
-        deadline: updatedDateTime,
-        done: parseInt(updatedDone),
-        createdAt: createdAt,
-        updatedAt: new Date().toISOString(),
-      };
 
-      const response = await axiosInstance.put(`api/to_do_list_items/${id}`, {
-        ...updatedTodo,
-      });
+    const updatedTodo = {
+      content: updatedValue,
+      priority: parseInt(updatedPriority, 10),
+      difficulty: parseInt(updatedPriority, 10),
+      deadline: updatedDateTime,
+      done: parseInt(updatedDone, 10),
+      createdAt,
+      updatedAt: new Date().toISOString(),
+    };
 
-      if (response.status === 200) {
-        setMessageSuccess('Bravo vous avez modifié la ToDo');
-        console.log('Todo updated successfully!');
-        setLoading(false);
-        updateTodo(id, updatedTodo);
-      }
-    } catch (error) {
-      console.error('An error occurred during the PUT request:', error);
-      toast(error.response.data.violations[0].message);
+    const response = await axiosInstance.put(`api/to_do_list_items/${id}`, {
+      ...updatedTodo,
+    });
+
+    if (response.status === 200) {
+      setMessageSuccess('Bravo vous avez modifié la ToDo');
       setLoading(false);
-      setMessageSuccess("Le formulaire n'est pas bien remplit");
+      updateTodo(id, updatedTodo);
+      window.location.reload();
     }
   };
 
@@ -173,6 +161,7 @@ const FormUpdate = ({
         transition:Bounce
       />
       <button
+        type='button'
         onClick={openModal}
         className='text-xl text-white bg-sun hover:bg-green-200 hover:text-sun px-3 py-1 rounded-full'
         data-update-btn-id={id}
@@ -188,7 +177,7 @@ const FormUpdate = ({
       </button>
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        // onRequestClose={closeModal}
         style={customStyles}
         contentLabel='Modal'
       >
@@ -197,28 +186,28 @@ const FormUpdate = ({
             <div>
               <label htmlFor='update-item' className='text-xl text-gray-600'>
                 Changer la ToDO?
+                <textarea
+                  value={updatedValue}
+                  type='text'
+                  placeholder={content}
+                  onChange={handleInputUpdate}
+                  id='update-item'
+                  className='border-solid border-4 border-gray-600 rounded-xl text-gray-600 mt-3 w-full text-xl pl-2 pt-1'
+                />
               </label>
-              <textarea
-                value={updatedValue}
-                type='text'
-                placeholder={content}
-                onChange={handleInputUpdate}
-                id='update-item'
-                className='border-solid border-4 border-gray-600 rounded-xl text-gray-600 mt-3 w-full text-xl pl-2 pt-1'
-              />
             </div>
             <div>
               <label htmlFor='deadlineUpdateInput' className='text-xl text-gray-600'>
                 Modifiez la date du {formatteddeadline}?
+                <input
+                  type='datetime-local'
+                  id='deadlineUpdateInput'
+                  name='deadlineUpdateInput'
+                  value={updatedDateTime}
+                  onChange={handleDateTimeUpdate}
+                  className='date-add-todo border-solid border-4 border-gray-600 rounded-xl mt-3 p-2 text-xl text-gray-600 w-full'
+                />
               </label>
-              <input
-                type='datetime-local'
-                id='deadlineUpdateInput'
-                name='deadlineUpdateInput'
-                value={updatedDateTime}
-                onChange={handleDateTimeUpdate}
-                className='date-add-todo border-solid border-4 border-gray-600 rounded-xl mt-3 p-2 text-xl text-gray-600 w-full'
-              />
             </div>
             <p className='text-xl text-gray-600 mt-3'>Modifier les critères?</p>
             <div className='flex flex-wrap'>
@@ -358,6 +347,7 @@ const FormUpdate = ({
             </div>
             <div className='flex justify-end mt-3'>
               <button
+                type='button'
                 onClick={closeModal}
                 className='text-xl text-gray-600 underline decoration-orange-500'
                 id='btn-close-modal-update'
@@ -370,6 +360,6 @@ const FormUpdate = ({
       </Modal>
     </>
   );
-};
+}
 
 export default FormUpdate;

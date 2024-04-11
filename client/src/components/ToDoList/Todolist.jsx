@@ -1,34 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 import FormAdd from './FormAdd';
 import FormDelete from './FormDelete';
 import FormUpdate from './FormUpdate';
 import Item from './Item';
-import { useLoaderData } from 'react-router-dom';
 
-const Todolist = () => {
-  const loaderData = useLoaderData();
+function Todolist() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [todos, setTodos] = useState('');
 
-  const [todos, setTodos] = useState(loaderData);
+  useEffect(() => {
+    const fetchData = () => {
+      fetch('http://localhost:8000/api/to_do_list_items')
+        .then((response) => response.json())
+        .then((data) => {
+          setTodos(data);
+          setIsLoading(false);
+        });
+    };
+    fetchData();
+  }, []);
 
   const addTodo = (newTodo) => {
     setTodos([...todos, newTodo]);
   };
 
   const deleteTodo = (id) => {
-    const deleteTodo = todos.filter((todo) => todo.id !== id);
-    setTodos(deleteTodo);
+    const deletedTodo = todos.filter((todo) => todo.id !== id);
+    setTodos(deletedTodo);
   };
 
   const updateTodo = (id, updatedTodo) => {
-    console.log(updatedTodo);
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        console.log(todo.id);
         return { ...todo, ...updatedTodo };
       }
       return todo;
     });
-
     setTodos(updatedTodos);
   };
 
@@ -41,10 +49,19 @@ const Todolist = () => {
         <FormAdd addTodo={addTodo} />
       </div>
       <div className='flex flex-wrap justify-center'>
-        {todos &&
-          todos.map((todo, index) => (
+        {isLoading ? (
+          <ClipLoader
+            color='123456'
+            loading={isLoading}
+            size={50}
+            aria-label='Loading Spinner'
+            data-testid='loader'
+          />
+        ) : (
+          todos &&
+          todos.map((todo) => (
             <div
-              key={index}
+              key={todo.id}
               className='border-solid border-4 border-gray-600 rounded-xl basis-1/5 p-3 m-5'
             >
               <Item
@@ -73,10 +90,11 @@ const Todolist = () => {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );
-};
+}
 
 export default Todolist;

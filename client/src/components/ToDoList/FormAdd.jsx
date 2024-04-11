@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import ClipLoader from 'react-spinners/ClipLoader';
-import addtodopng from '../../assets/img-home/add-todo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import addtodopng from '../../assets/img-home/add-todo.png';
 import modifytodomodalpng from '../../assets/img-home/modify-todo-modal.png';
 import modifytodomodalpluspng from '../../assets/img-home/plus.png';
 import modifytodomodalminuspng from '../../assets/img-home/minus.png';
@@ -21,7 +22,11 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const FormAdd = ({ addTodo }) => {
+function FormAdd({ addTodo }) {
+  FormAdd.propTypes = {
+    addTodo: PropTypes.func.isRequired,
+  };
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [itemValue, setItemValue] = useState('');
   const [selectedDateTime, setSelectedDateTime] = useState('');
@@ -46,38 +51,38 @@ const FormAdd = ({ addTodo }) => {
   };
 
   const handlePriorityDown = () => {
-    if (parseInt(selectedPriority) > 1) {
-      setSelectedPriority(parseInt(selectedPriority) - 1);
+    if (parseInt(selectedPriority, 10) > 1) {
+      setSelectedPriority(parseInt(selectedPriority, 10) - 1);
     }
   };
 
   const handlePriorityUp = () => {
-    if (parseInt(selectedPriority) < 5) {
-      setSelectedPriority(parseInt(selectedPriority) + 1);
+    if (parseInt(selectedPriority, 10) < 5) {
+      setSelectedPriority(parseInt(selectedPriority, 10) + 1);
     }
   };
 
   const handleDifficultyDown = () => {
-    if (parseInt(selectedDifficulty) > 1) {
-      setSelectedDifficulty(parseInt(selectedDifficulty) - 1);
+    if (parseInt(selectedDifficulty, 10) > 1) {
+      setSelectedDifficulty(parseInt(selectedDifficulty, 10) - 1);
     }
   };
 
   const handleDifficultyUp = () => {
-    if (parseInt(selectedDifficulty) < 5) {
-      setSelectedDifficulty(parseInt(selectedDifficulty) + 1);
+    if (parseInt(selectedDifficulty, 10) < 5) {
+      setSelectedDifficulty(parseInt(selectedDifficulty, 10) + 1);
     }
   };
 
   const handleDoneDown = () => {
-    if (parseInt(selectedDone) > 1) {
-      setSelectedDone(parseInt(selectedDone) - 1);
+    if (parseInt(selectedDone, 10) > 1) {
+      setSelectedDone(parseInt(selectedDone, 10) - 1);
     }
   };
 
   const handleDoneUp = () => {
-    if (parseInt(selectedDone) < 5) {
-      setSelectedDone(parseInt(selectedDone) + 1);
+    if (parseInt(selectedDone, 10) < 5) {
+      setSelectedDone(parseInt(selectedDone, 10) + 1);
     }
   };
 
@@ -88,50 +93,35 @@ const FormAdd = ({ addTodo }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(selectedDateTime);
-    try {
-      const response = await fetch('http://localhost/api/to_do_list_items', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/ld+json; charset=utf-8',
-        },
-        body: JSON.stringify({
-          content: itemValue,
-          priority: parseInt(selectedPriority),
-          difficulty: parseInt(selectedDifficulty),
-          deadline: selectedDateTime,
-          done: parseInt(selectedDone),
-          createdAt: new Date().toISOString(),
-        }),
-      });
-      if (response.ok) {
-        const newItem = await response.json();
-        addTodo(newItem);
-        setItemValue('');
-        setSelectedDateTime('');
-        setSelectedPriority('1');
-        setSelectedDifficulty('1');
-        setSelectedDone('1');
-        setMessageSuccess('Bravo vous avez ajoutez la ToDo');
-        setLoading(false);
-        console.log('Item added successfully!');
-      } else {
-        setLoading(false);
-        console.error(
-          'Failed to add item. Server returned:',
-          response.status,
-          response.statusText,
-          response,
-        );
-        console.log(response);
-        const body = await response.json();
-        //console.log(body["hydra:description"])
-        toast(body['violations'][0]['message']);
-        throw new Error(response.statusText || "Une erreur s'est produite");
-      }
-    } catch (error) {
-      console.error('An error occurred during the POST request:', error);
-      console.log(error);
+    const response = await fetch('http://localhost:8000/api/to_do_list_items', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/ld+json; charset=utf-8',
+      },
+      body: JSON.stringify({
+        content: itemValue,
+        priority: parseInt(selectedPriority, 10),
+        difficulty: parseInt(selectedDifficulty, 10),
+        deadline: selectedDateTime,
+        done: parseInt(selectedDone, 10),
+        createdAt: new Date().toISOString(),
+      }),
+    });
+    if (response.ok) {
+      const newItem = await response.json();
+      addTodo(newItem);
+      setItemValue('');
+      setSelectedDateTime('');
+      setSelectedPriority('1');
+      setSelectedDifficulty('1');
+      setSelectedDone('1');
+      setMessageSuccess('Bravo vous avez ajoutez la ToDo');
+      setLoading(false);
+    } else {
+      setLoading(false);
+      const body = await response.json();
+      toast(body.violations[0].message);
+      throw new Error(response.statusText || "Une erreur s'est produite");
     }
   };
 
@@ -155,6 +145,7 @@ const FormAdd = ({ addTodo }) => {
           onClick={openModal}
           className='text-xl text-white bg-nav hover:bg-blue-200 hover:text-nav px-3 py-1 rounded-full'
           data-btn-add='add'
+          type='button'
         >
           <div className='flex flex-row'>
             <div>
@@ -168,25 +159,24 @@ const FormAdd = ({ addTodo }) => {
       </div>
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        // onRequestClose={closeModal}
         style={customStyles}
         contentLabel='Modal'
       >
         <div className='todo m-1'>
           <form className='max-w-xl' onSubmit={handleSubmit}>
-            {/* <Form className='max-w-xl' method="post" action="/to-do-list-new"> */}
             <div>
               <label htmlFor='create-item-content' className='text-xl text-gray-600'>
                 Que devez vous faire?
+                <textarea
+                  value={itemValue}
+                  type='text'
+                  placeholder='Je dois...'
+                  onChange={handleInputChange}
+                  id='create-item-content'
+                  className='border-solid border-4 border-gray-600 rounded-xl text-gray-600 mt-3 w-full text-xl pl-2 pt-1'
+                />
               </label>
-              <textarea
-                value={itemValue}
-                type='text'
-                placeholder='Je dois...'
-                onChange={handleInputChange}
-                id='create-item-content'
-                className='border-solid border-4 border-gray-600 rounded-xl text-gray-600 mt-3 w-full text-xl pl-2 pt-1'
-              />
             </div>
             <div className='flex-wrap'>
               <div className='mt-2'>
@@ -194,17 +184,15 @@ const FormAdd = ({ addTodo }) => {
                   <div>
                     <label htmlFor='deadlineInput' className='text-xl text-gray-600'>
                       Sélectionnez la date butoire :
+                      <input
+                        type='datetime-local'
+                        id='deadlineInput'
+                        name='deadlineInput'
+                        value={selectedDateTime}
+                        onChange={handleDateTimeChange}
+                        className='date-add-todo border-solid border-4 border-gray-600 rounded-xl mt-3 p-2 text-xl text-gray-600 w-full'
+                      />
                     </label>
-                  </div>
-                  <div>
-                    <input
-                      type='datetime-local'
-                      id='deadlineInput'
-                      name='deadlineInput'
-                      value={selectedDateTime}
-                      onChange={handleDateTimeChange}
-                      className='date-add-todo border-solid border-4 border-gray-600 rounded-xl mt-3 p-2 text-xl text-gray-600 w-full'
-                    />
                   </div>
                 </div>
               </div>
@@ -328,7 +316,7 @@ const FormAdd = ({ addTodo }) => {
                         <img
                           src={modifytodomodalpng}
                           alt='corbeille'
-                          className='img-fluid  w-[45px]'
+                          className='h-[45px] w-[45px]'
                         />
                       </div>
                       <div className='flex items-center'>
@@ -351,6 +339,7 @@ const FormAdd = ({ addTodo }) => {
             </div>
             <div className='flex justify-end mt-3'>
               <button
+                type='button'
                 onClick={closeModal}
                 className='text-xl text-gray-600 underline decoration-orange-500'
                 id='btn-close-modal-add'
@@ -363,6 +352,6 @@ const FormAdd = ({ addTodo }) => {
       </Modal>
     </>
   );
-};
+}
 
 export default FormAdd;

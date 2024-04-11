@@ -20,7 +20,7 @@ jobs:
       - name: Start MySQL
         run: |
             sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE IF NOT EXISTS caterflow;' -uroot -proot
+            mysql -e 'CREATE DATABASE IF NOT EXISTS everymeeting;' -uroot -proot
 
       - name: Install Symfony CLI
         run: |
@@ -29,17 +29,23 @@ jobs:
 
       - name: Start server
         run: |
-          cd api
-          composer install --no-interaction --env=TEST
-          symfony console doctrine:migration:migrate --no-interaction --env=TEST
-          symfony console doctrine:fixtures:load --no-interaction --env=TEST
+          composer install --no-interaction 
+          symfony console doctrine:migrations:migrate --no-interaction 
+          symfony console doctrine:fixtures:load --no-interaction
           symfony server:start &
+        working-directory: api
+
+      - name: Debug
+        run: |
+          curl http://127.0.0.1:8000/api/to_do_list_items
 
       - name: Run Cypress
         uses: cypress-io/github-action@v6
         with:
           working-directory: client
+          wait-on: "http://localhost:3000/"
+          wait-on-timeout: 3000
+          browser: chrome
           build: npm run build
-          start: npm start
-          wait-on-timeout: 500
+          start: npm run dev
 

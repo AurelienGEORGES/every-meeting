@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Scrum = () => {
-  return <div>Scrum</div>;
-};
+function Scrum() {
+  return (
+    <div>
+      <h1>Scrum</h1>
+    </div>
+  );
+}
 
 export default Scrum;

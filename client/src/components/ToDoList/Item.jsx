@@ -1,6 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Item = ({ content, priority, difficulty, deadline, done, id }) => {
+function Item({ content, priority, difficulty, deadline, done, id }) {
+  Item.propTypes = {
+    content: PropTypes.string.isRequired, // Required string
+    priority: PropTypes.number.isRequired, // Required number
+    difficulty: PropTypes.number.isRequired, // Required number
+    deadline: PropTypes.string.isRequired, // Required string (assuming deadline is a string representation)
+    done: PropTypes.number.isRequired, // Required number
+    id: PropTypes.number.isRequired, // Required string
+  };
+
   const rawdeadline = new Date(deadline);
   rawdeadline.setHours(rawdeadline.getHours() - 2);
 
@@ -26,15 +36,15 @@ const Item = ({ content, priority, difficulty, deadline, done, id }) => {
         {content}
       </p>
       <p className='text-xl text-gray-600 my-2'>priorité :</p>
-      <progress max='5' value={priority}></progress>
+      <progress max='5' value={priority} />
       <p className='text-xl text-gray-600 my-2'>difficulté :</p>
-      <progress max='5' value={difficulty}></progress>
+      <progress max='5' value={difficulty} />
       <p className='text-xl text-gray-600 my-2'>avancement :</p>
-      <progress max='5' value={done}></progress>
+      <progress max='5' value={done} />
       <p className='text-xl text-gray-600 my-2'>A faire avant le :</p>
       <p className='text-xl text-gray-600'>{formatteddeadline}</p>
     </div>
   );
-};
+}
 
 export default Item;
