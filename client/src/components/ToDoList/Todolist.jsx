@@ -41,22 +41,25 @@ function Todolist() {
   };
 
   return (
-    <div>
+    <div className='w-full'>
       <h1 className='text-2xl md:text-4xl text-nav text-center mx-3 my-10'>
         Voici votre liste To Do. Ici vous pourrez organiser, gérer et prioriser vos tâches.
       </h1>
       <div>
         <FormAdd addTodo={addTodo} />
       </div>
-      <div className='flex flex-wrap justify-center'>
+
+      <div className='flex flex-wrap justify-center my-5'>
         {isLoading ? (
-          <ClipLoader
-            color='123456'
-            loading={isLoading}
-            size={50}
-            aria-label='Loading Spinner'
-            data-testid='loader'
-          />
+          <div className='flex h-48 justify-center items-center'>
+            <ClipLoader
+              color='#951471'
+              loading={isLoading}
+              size={100}
+              aria-label='Loading Spinner'
+              data-testid='loader'
+            />
+          </div>
         ) : (
           todos &&
           todos.map((todo) => (

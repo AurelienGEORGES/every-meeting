@@ -64,7 +64,7 @@ function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, d
   const [updatedDone, setUpdatedDone] = useState(done);
   const [MessageSuccess, setMessageSuccess] = useState('');
   const [loading, setLoading] = useState(false);
-  const color = '#456123';
+  const color = '#1CA324';
 
   function openModal() {
     setIsOpen(true);
@@ -222,7 +222,7 @@ function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, d
                         <img
                           src={modifytodomodalminuspng}
                           alt='moins'
-                          className='img-fluid  w-[45px]'
+                          className='h-[45px]  w-[45px]'
                         />
                       </button>
                     </div>
@@ -322,11 +322,11 @@ function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, d
               <div>
                 <button
                   type='submit'
-                  className='text-xl text-white bg-sun hover:bg-green-200 hover:text-sun p-3 rounded-full'
+                  className='text-xl text-white bg-appleModify hover:bg-green-200 hover:text-sun p-3 rounded-full'
                 >
                   <div className='flex flex-row'>
                     <div>
-                      <img src={modifytodomodalpng} alt='fusée' className='img-fluid  w-[45px]' />
+                      <img src={modifytodomodalpng} alt='fusée' className='h-[45px]  w-[45px]' />
                     </div>
                     <div className='flex items-center'>
                       <p className='ps-1'>Enregister</p>
@@ -349,7 +349,7 @@ function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, d
               <button
                 type='button'
                 onClick={closeModal}
-                className='text-xl text-gray-600 underline decoration-orange-500'
+                className='text-xl text-gray-600 underline decoration-appleModify'
                 id='btn-close-modal-update'
               >
                 Fermer le formulaire

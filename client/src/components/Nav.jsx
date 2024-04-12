@@ -8,7 +8,7 @@ import navchat from '../assets/img-home/nav-chat.png';
 import navplanning from '../assets/img-home/nav-planning.png';
 
 function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -104,54 +104,138 @@ function Nav() {
           <li className='text-white text-2xl p-2 hover:underline'>
             <NavLink to='/' title="page d'accueil">
               {isOpen && !isOpenBurger ? (
-                <img src={navhome} alt='maison' className='img-fluid' />
+                <div className='flex flex-col'>
+                  <div>
+                    <img src={navhome} alt='maison' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className='text-white'>Accueil</p>
+                  </div>
+                </div>
               ) : (
-                'Accueil'
+                <div className='flex flex-row justify-center'>
+                  <div>
+                    <img src={navhome} alt='maison' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>Accueil</p>
+                  </div>
+                </div>
               )}
             </NavLink>
           </li>
           <li className='text-white text-2xl p-2 hover:underline'>
             <NavLink to='/to-do-list' title='page de la ToDo liste'>
               {isOpen && !isOpenBurger ? (
-                <img src={navtodolist} alt='crayon' className='img-fluid' />
+                <div className='flex flex-col'>
+                  <div>
+                    <img src={navtodolist} alt='crayon' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className='text-white'>ToDo Liste</p>
+                  </div>
+                </div>
               ) : (
-                'ToDo Liste'
+                <div className='flex flex-row justify-center'>
+                  <div>
+                    <img src={navtodolist} alt='crayon' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>ToDo Liste</p>
+                  </div>
+                </div>
               )}
             </NavLink>
           </li>
           <li className='text-white text-2xl p-2 hover:underline'>
             <NavLink to='/kanban' title='page du Kanban' data-cy='kanbanLink'>
               {isOpen && !isOpenBurger ? (
-                <img src={navkanban} alt='tableau' className='img-fluid' />
+                <div className='flex flex-col'>
+                  <div>
+                    <img src={navkanban} alt='tableau' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className='text-white'>Kanban</p>
+                  </div>
+                </div>
               ) : (
-                'Kanban'
+                <div className='flex flex-rox justify-center'>
+                  <div>
+                    <img src={navkanban} alt='tableau' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>Kanban</p>
+                  </div>
+                </div>
               )}
             </NavLink>
           </li>
           <li className='text-white text-2xl p-2 hover:underline'>
             <NavLink to='/chat' title='page du Chat'>
               {isOpen && !isOpenBurger ? (
-                <img src={navchat} alt='message' className='img-fluid' />
+                <div className='flex flex-col'>
+                  <div>
+                    <img src={navchat} alt='message' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className='text-white'>Chat</p>
+                  </div>
+                </div>
               ) : (
-                'Chat'
+                <div className='flex flex-row justify-center'>
+                  <div>
+                    <img src={navchat} alt='message' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>Chat</p>
+                  </div>
+                </div>
               )}
             </NavLink>
           </li>
           <li className='text-white text-2xl p-2 hover:underline'>
             <NavLink to='/planning' title='page du Planning'>
               {isOpen && !isOpenBurger ? (
-                <img src={navplanning} alt='calendrier' className='img-fluid' />
+                <div className='flex flex-col'>
+                  <div>
+                    <img src={navplanning} alt='calendrier' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className='text-white'>Planning</p>
+                  </div>
+                </div>
               ) : (
-                'Planning'
+                <div className='flex flex-row justify-center'>
+                  <div>
+                    <img src={navplanning} alt='calendrier' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>Planning</p>
+                  </div>
+                </div>
               )}
             </NavLink>
           </li>
           <li className='text-white text-2xl p-2 hover:underline'>
             <NavLink to='/scrum' title='page du Scrum'>
               {isOpen && !isOpenBurger ? (
-                <img src={navscrum} alt='carnet' className='img-fluid' />
+                <div className='flex flex-col'>
+                  <div>
+                    <img src={navscrum} alt='carnet' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p>Scrum</p>
+                  </div>
+                </div>
               ) : (
-                'Scrum'
+                <div className='flex flex-row justify-center'>
+                  <div>
+                    <img src={navscrum} alt='carnet' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>Scrum</p>
+                  </div>
+                </div>
               )}
             </NavLink>
           </li>
