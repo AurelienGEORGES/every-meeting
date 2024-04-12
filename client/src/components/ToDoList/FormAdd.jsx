@@ -35,7 +35,7 @@ function FormAdd({ addTodo }) {
   const [selectedDone, setSelectedDone] = useState('1');
   const [MessageSuccess, setMessageSuccess] = useState('');
   const [loading, setLoading] = useState(false);
-  const color = '#123456';
+  const color = '#1CA324';
 
   function openModal() {
     setIsOpen(true);
@@ -309,7 +309,7 @@ function FormAdd({ addTodo }) {
                 <div>
                   <button
                     type='submit'
-                    className='text-xl text-white bg-sun hover:bg-blue-200 hover:text-sun px-3 py-2 rounded-full'
+                    className='text-xl text-white bg-appleModify hover:bg-blue-200 hover:text-sun px-3 py-2 rounded-full'
                   >
                     <div className='flex flex-row'>
                       <div>
@@ -341,7 +341,7 @@ function FormAdd({ addTodo }) {
               <button
                 type='button'
                 onClick={closeModal}
-                className='text-xl text-gray-600 underline decoration-orange-500'
+                className='text-xl text-gray-600 underline decoration-appleModify'
                 id='btn-close-modal-add'
               >
                 Fermer le formulaire

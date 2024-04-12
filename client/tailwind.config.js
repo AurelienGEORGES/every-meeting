@@ -11,6 +11,7 @@ export default {
                 'apple': '#2F9B08',
                 'sun': '#03781c',
                 'king': '#951471',
+                'appleModify': '#1CA324' 
             }
         },
     },
