@@ -16,5 +16,5 @@ echo "tests Lint & Prettier sur le client React"
 cd ../client 
 echo "test Prettier"
 npm run format
-# echo "test Linter"
-# npm run lint
+echo "test Linter"
+npm run lint
