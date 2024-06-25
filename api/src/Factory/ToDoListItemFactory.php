@@ -3,10 +3,11 @@
 namespace App\Factory;
 
 use App\Entity\ToDoListItem;
-use App\Repository\ToDoListItemRepository;
-use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\RepositoryProxy;
+use App\Repository\ToDoListItemRepository;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
  * @extends ModelFactory<ToDoListItem>
