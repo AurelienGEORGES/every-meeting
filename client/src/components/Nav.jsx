@@ -6,6 +6,7 @@ import navscrum from '../assets/img-home/nav-scrum.png';
 import navhome from '../assets/img-home/nav-home.png';
 import navchat from '../assets/img-home/nav-chat.png';
 import navplanning from '../assets/img-home/nav-planning.png';
+import navregister from '../assets/img-home/register.png';
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(true);
@@ -231,6 +232,29 @@ function Nav() {
                 <div className='flex flex-row justify-center'>
                   <div>
                     <img src={navscrum} alt='carnet' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>Scrum</p>
+                  </div>
+                </div>
+              )}
+            </NavLink>
+          </li>
+          <li className='text-white text-2xl p-2 hover:underline'>
+            <NavLink to='/register' title="page d'inscription">
+              {isOpen && !isOpenBurger ? (
+                <div className='flex flex-col'>
+                  <div>
+                    <img src={navregister} alt='avatar' className='w-[2rem]' />
+                  </div>
+                  <div>
+                    <p>Register</p>
+                  </div>
+                </div>
+              ) : (
+                <div className='flex flex-row justify-center'>
+                  <div>
+                    <img src={navregister} alt='avatar' className='w-[2rem]' />
                   </div>
                   <div>
                     <p className={`${isOpenBurger ? 'text-white ms-3' : 'hidden'}`}>Scrum</p>

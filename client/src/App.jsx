@@ -7,7 +7,9 @@ import Chat from './components/Chat';
 import Kanban from './components/Kanban';
 import Nav from './components/Nav';
 import Error from './components/Error';
+import Register from './components/Connexion/Register';
 import './App.scss';
+
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
       },
     ],
   },

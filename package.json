@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "container-api": "docker exec -it every-meeting-api bash", 
     "container-client": "docker exec -it every-meeting-client bash",
-    "prepare": "husky install"
+    "prepare": ".husky"
   },
   "author": "",
   "license": "ISC",
