@@ -6,3 +6,5 @@ controllers:
 app_api_auth:
     path: /auth
     methods: [POST]
+api_refresh_token:
+    path: /token/refresh
