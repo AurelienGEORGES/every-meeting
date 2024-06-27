@@ -8,6 +8,7 @@ import Kanban from './components/Kanban';
 import Nav from './components/Nav';
 import Error from './components/Error';
 import Register from './components/Connexion/Register';
+import Login from './components/Connexion/Login';
 import './App.scss';
 
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register />,
       },
+      {
+        path: '/login',
+        element: <Login />,
+      }
     ],
   },
 ]);
