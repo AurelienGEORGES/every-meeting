@@ -4,25 +4,14 @@ import axios from 'axios';
 const Register = () => {
 
     const [error, setError] = useState('');
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        confirmEmail: '',
-        plainPassword: '',
-        confirmPassword: ''
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
+    const [email, setEmail] = useState('');
+    const [confirmEmail, setConfirmEmail] = useState('');
+    const [plainPassword, setPlainPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { email, confirmEmail, plainPassword, confirmPassword, username } = formData;
         if (email !== confirmEmail) {
             setError('Les adresses email ne correspondent pas');
             return;
@@ -63,10 +52,10 @@ const Register = () => {
                         <input
                             type="text"
                             name="username"
-                            value={formData.username}
-                            onChange={handleChange}
+                            onChange={(e) => setUsername(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required
+                            autoComplete="new-username"
                         />
                     </div>
                     <div>
@@ -74,10 +63,10 @@ const Register = () => {
                         <input
                             type="email"
                             name="email"
-                            value={formData.email}
-                            onChange={handleChange}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required
+                            autoComplete="new-email"
                         />
                     </div>
                     <div>
@@ -85,10 +74,10 @@ const Register = () => {
                         <input
                             type="email"
                             name="confirmEmail"
-                            value={formData.confirmEmail}
-                            onChange={handleChange}
+                            onChange={(e) => setConfirmEmail(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required
+                            autoComplete="new-email"
                         />
                     </div>
                     <div>
@@ -96,10 +85,10 @@ const Register = () => {
                         <input
                             type="password"
                             name="plainPassword"
-                            value={formData.plainPassword}
-                            onChange={handleChange}
+                            onChange={(e) => setPlainPassword(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required
+                            autoComplete="new-password"
                         />
                     </div>
                     <div>
@@ -107,10 +96,10 @@ const Register = () => {
                         <input
                             type="password"
                             name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required
+                            autoComplete="new-password"
                         />
                     </div>
                     <button
