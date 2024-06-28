@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Register = () => {
 
@@ -7,7 +8,7 @@ const Register = () => {
         username: '',
         email: '',
         confirmEmail: '',
-        password: '',
+        plainPassword: '',
         confirmPassword: ''
     });
 
@@ -21,29 +22,32 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { email, confirmEmail, password, confirmPassword, username } = formData;
+        const { email, confirmEmail, plainPassword, confirmPassword, username } = formData;
         if (email !== confirmEmail) {
             setError('Les adresses email ne correspondent pas');
             return;
         }
-        if (password !== confirmPassword) {
+        if (plainPassword !== confirmPassword) {
             setError('Les mots de passe ne correspondent pas');
             return;
         }
         try {
+            console.log('test')
             const response = await axios.post(
                 'http://localhost:8000/api/users',
                 {
                     email,
-                    plainPassword,
-                    username
+                    username,
+                    plainPassword    
                 },
                 {
                     withCredentials: true,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
                 }
             );
-            // ... Handle response and tokens
-            console.log('Utilisateur créé', response.data);
         } catch (error) {
             setError('Erreur lors de la création de l\'utilisateur');
         }
@@ -91,8 +95,8 @@ const Register = () => {
                         <label className="block text-gray-700">Mot de passe</label>
                         <input
                             type="password"
-                            name="password"
-                            value={formData.password}
+                            name="plainPassword"
+                            value={formData.plainPassword}
                             onChange={handleChange}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required

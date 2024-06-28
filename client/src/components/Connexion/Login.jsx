@@ -15,11 +15,7 @@ const Login = () => {
               password,
             },
             {
-              withCredentials: true,
-            //   headers: {
-            //     'Accept': 'application/json',
-            //     'Content-Type': 'application/json'
-            //   }
+              withCredentials: true,          
             }
           );
           console.log(response)
@@ -39,20 +35,22 @@ const Login = () => {
                         <label className="block text-gray-700">Email</label>
                         <input
                             type="email"
-                            value={email}
+                            // value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required
+                            name="email"
                         />
                     </div>
                     <div>
                         <label className="block text-gray-700">Mot de passe</label>
                         <input
-                            type="password"
-                            value={password}
+                            type="plainPassword"
+                            // value={plainPassword}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                             required
+                            name="plainPassword"
                         />
                     </div>
                     {error && <p className="text-red-500 text-sm">{error}</p>}
