@@ -1,0 +1,5 @@
+App\Entity\ToDoListItem:
+    # ...
+    operations:
+        ApiPlatform\Metadata\GetCollection:
+            filters: ['todolistitem.search_filter']

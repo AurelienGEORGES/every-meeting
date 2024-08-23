@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import ClipLoader from 'react-spinners/ClipLoader';
 import FormAdd from './FormAdd';
 import FormDelete from './FormDelete';
@@ -8,10 +9,12 @@ import Item from './Item';
 function Todolist() {
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState('');
+  const { user } = useAuth();
+  const userId = user.id
 
   useEffect(() => {
     const fetchData = () => {
-      fetch('http://localhost:8000/api/to_do_list_items')
+      fetch(`http://localhost:8000/api/to_do_list_items?user=${userId}`)
         .then((response) => response.json())
         .then((data) => {
           setTodos(data);
@@ -43,7 +46,7 @@ function Todolist() {
   return (
     <div className='w-full'>
       <h1 className='text-2xl md:text-4xl text-nav text-center mx-3 my-10'>
-        Voici votre liste To Do. Ici vous pourrez organiser, gérer et prioriser vos tâches.
+        Voici ta liste ToDo liste {user.username}. Ici tu pourras organiser, gérer et prioriser tes tâches.
       </h1>
       <div>
         <FormAdd addTodo={addTodo} />
@@ -89,6 +92,7 @@ function Todolist() {
                     done={todo.done}
                     createdAt={todo.createdAt}
                     updateTodo={updateTodo}
+                    user={todo.user}
                   />
                 </div>
               </div>

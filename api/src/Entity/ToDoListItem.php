@@ -9,11 +9,14 @@ use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+// use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ToDoListItemRepository;
+// use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ToDoListItemRepository::class)]
 #[ApiResource(
@@ -26,7 +29,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(),
         new Patch(),
         new Put()
-    ]
+    ],
+    filters: ['todolistitem.search_filter']
 )]
 class ToDoListItem
 {
@@ -71,6 +75,10 @@ class ToDoListItem
     #[Assert\Length(min: 1, minMessage: 'la difficultée minimum vaut 1')]
     #[Assert\Length(max: 5, maxMessage: 'la difficultée maximum vaut 5')]
     private ?int $difficulty = null;
+
+    #[Groups(['read', 'write'])]
+    #[ORM\ManyToOne(inversedBy: 'toDoListItems')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -157,6 +165,18 @@ class ToDoListItem
     public function setDifficulty(?int $difficulty): static
     {
         $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

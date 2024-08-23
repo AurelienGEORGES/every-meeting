@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Post;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
@@ -50,9 +52,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 30)]
     private ?string $username = null;
 
+    // #[Assert\Date]
+    // #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    // private ?\DateTimeInterface $created_at = null;
     #[Assert\Date]
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $created_at = null;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $created_at = null;
 
     /**
      * @var list<string> The user roles
@@ -69,6 +74,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(groups: ['user:create'])]
     #[Groups(['user:create', 'user:update'])]
     private ?string $plainPassword = null;
+
+    /**
+     * @var Collection<int, ToDoListItem>
+     */
+    #[ORM\OneToMany(targetEntity: ToDoListItem::class, mappedBy: 'user')]
+    private Collection $toDoListItems;
+
+    public function __construct()
+    {
+        $this->toDoListItems = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -176,5 +192,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, ToDoListItem>
+     */
+    public function getToDoListItems(): Collection
+    {
+        return $this->toDoListItems;
+    }
+
+    public function addToDoListItem(ToDoListItem $toDoListItem): static
+    {
+        if (!$this->toDoListItems->contains($toDoListItem)) {
+            $this->toDoListItems->add($toDoListItem);
+            $toDoListItem->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeToDoListItem(ToDoListItem $toDoListItem): static
+    {
+        if ($this->toDoListItems->removeElement($toDoListItem)) {
+            // set the owning side to null (unless already changed)
+            if ($toDoListItem->getUser() === $this) {
+                $toDoListItem->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

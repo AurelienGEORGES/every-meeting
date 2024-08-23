@@ -1,4 +1,7 @@
+import React from 'react';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext'; // Assure-toi du bon chemin
+import ProtectedRoute from './components/Connexion/ProtectedRoute';
 import Todolist from './components/ToDoList/Todolist';
 import Home from './components/Home';
 import Scrum from './components/Scrum';
@@ -9,8 +12,8 @@ import Nav from './components/Nav';
 import Error from './components/Error';
 import Register from './components/Connexion/Register';
 import Login from './components/Connexion/Login';
+import Logout from './components/Connexion/Logout';
 import './App.scss';
-
 
 const router = createBrowserRouter([
   {
@@ -20,23 +23,43 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/to-do-list',
-        element: <Todolist />,
+        element: (
+          <ProtectedRoute>
+            <Todolist />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/kanban',
-        element: <Kanban />,
+        element: (
+          <ProtectedRoute>
+            <Kanban />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/chat',
-        element: <Chat />,
+        element: (
+          <ProtectedRoute>
+            <Chat />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/planning',
-        element: <Planning />,
+        element: (
+          <ProtectedRoute>
+            <Planning />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/scrum',
-        element: <Scrum />,
+        element: (
+          <ProtectedRoute>
+            <Scrum />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/',
@@ -49,7 +72,11 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
-      }
+      },
+      {
+        path: '/logout',
+        element: <Logout />,
+      },
     ],
   },
 ]);
@@ -66,7 +93,11 @@ function Root() {
 }
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default App;

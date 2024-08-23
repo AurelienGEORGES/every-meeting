@@ -14,3 +14,4 @@ lexik_jwt_authentication:
     set_cookies:
         JWT_Token: ~
     remove_token_from_body_when_cookies_used: false
+    

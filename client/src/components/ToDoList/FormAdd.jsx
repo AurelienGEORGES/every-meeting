@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { useAuth } from '../../contexts/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import addtodopng from '../../assets/img-home/add-todo.png';
@@ -36,6 +37,9 @@ function FormAdd({ addTodo }) {
   const [MessageSuccess, setMessageSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const color = '#1CA324';
+  const { user } = useAuth();
+  const userId = user.id
+
 
   function openModal() {
     setIsOpen(true);
@@ -105,6 +109,7 @@ function FormAdd({ addTodo }) {
         deadline: selectedDateTime,
         done: parseInt(selectedDone, 10),
         createdAt: new Date().toISOString(),
+        user: `/api/users/${userId}`,
       }),
     });
     if (response.ok) {

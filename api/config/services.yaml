@@ -25,3 +25,13 @@ services:
     App\State\UserPasswordHasher:
         bind:
             $processor: '@api_platform.doctrine.orm.state.persist_processor'
+            
+    App\EventListener\JWTAuthenticatedListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'lexik_jwt_authentication.on_authentication_success', method: 'onAuthenticationSuccessResponse' }
+
+    todolistitem.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { user: 'exact' } ]
+        tags:  [ 'api_platform.filter' ]
+        

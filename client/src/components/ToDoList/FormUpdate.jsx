@@ -23,7 +23,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, done, createdAt }) {
+function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, done, createdAt, user }) {
   FormUpdate.propTypes = {
     content: PropTypes.string.isRequired, // Required string
     priority: PropTypes.number.isRequired, // Required number
@@ -33,6 +33,7 @@ function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, d
     id: PropTypes.number.isRequired,
     updateTodo: PropTypes.func.isRequired, // Required string
     createdAt: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
   };
 
   const rawdeadline = new Date(deadline);
@@ -131,6 +132,7 @@ function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, d
       done: parseInt(updatedDone, 10),
       createdAt,
       updatedAt: new Date().toISOString(),
+      user,
     };
 
     const response = await axiosInstance.put(`api/to_do_list_items/${id}`, {
@@ -141,7 +143,7 @@ function FormUpdate({ id, updateTodo, content, priority, difficulty, deadline, d
       setMessageSuccess('Bravo vous avez modifié la ToDo');
       setLoading(false);
       updateTodo(id, updatedTodo);
-      window.location.reload();
+      closeModal()
     }
   };
 
