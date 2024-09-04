@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useAuth } from '../../contexts/AuthContext'; // Importer le hook useAuth
+import axiosInstance from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext'; 
 import { useNavigate } from "react-router-dom";
 import teamMeeting7 from '../../assets/img-home/team-meeting-7.webp';
 
@@ -8,14 +8,13 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login } = useAuth(); // Extraire la fonction login du contexte d'authentification
+    const { setAuthToken, setUserConnected  } = useAuth(); 
     const navigate = useNavigate();
-
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/api/auth',
+            const response = await axiosInstance.post('/auth',
                 {
                     email,
                     password,
@@ -24,14 +23,11 @@ const Login = () => {
                     withCredentials: true,
                 }
             );
-            const token = response;
-
+            const token = response.data.token;
             const user = response.data.user;
-
-            login(token, user);
-
+            setAuthToken(token);
+            setUserConnected(user);
             navigate("/to-do-list");
-
         } catch (error) {
             setError('Le couple mot de passe et mail ne correspondent pas');
         }

@@ -13,7 +13,7 @@ import navlogout from '../assets/img-home/logout.png';
 
 function Nav() {
 
-    const { user } = useAuth();
+    const { userConnected } = useAuth();
 
     const [isOpen, setIsOpen] = useState(true);
 
@@ -246,7 +246,7 @@ function Nav() {
                             )}
                         </NavLink>
                     </li>
-                    {!user &&
+                    {!userConnected &&
                         <li className='text-white text-2xl p-2 hover:underline content-center'>
                             <NavLink to='/register' title="page d'inscription">
                                 {isOpen && !isOpenBurger ? (
@@ -271,7 +271,7 @@ function Nav() {
                             </NavLink>
                         </li>
                     }
-                    {!user &&
+                    {!userConnected &&
                         <li className='text-white text-2xl p-2 hover:underline content-center'>
                             <NavLink to='/login' title="page de connexion">
                                 {isOpen && !isOpenBurger ? (
@@ -296,7 +296,7 @@ function Nav() {
                             </NavLink>
                         </li>
                     }
-                    {user &&
+                    {userConnected &&
                         <li className='text-white text-2xl p-2 hover:underline content-center'>
                             <NavLink to='/logout' title="page de déconnexion">
                                 {isOpen && !isOpenBurger ? (
