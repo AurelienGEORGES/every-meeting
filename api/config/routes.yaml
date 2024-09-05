@@ -7,4 +7,3 @@ app_api_auth:
     path: /api/auth
     methods: [POST]
 
-

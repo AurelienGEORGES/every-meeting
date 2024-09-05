@@ -30,8 +30,8 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'lexik_jwt_authentication.on_authentication_success', method: 'onAuthenticationSuccessResponse' }
 
-    todolistitem.search_filter:
-        parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { user: 'exact' } ]
-        tags:  [ 'api_platform.filter' ]
+    # todolistitem.search_filter:
+    #     parent: 'api_platform.doctrine.orm.search_filter'
+    #     arguments: [ { user: 'exact' } ]
+    #     tags:  [ 'api_platform.filter' ]
         

@@ -10,10 +10,11 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 // use ApiPlatform\Metadata\ApiFilter;
+use App\State\ToDoListStateProvider;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-use App\Repository\ToDoListItemRepository;
 // use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
+use App\Repository\ToDoListItemRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -25,12 +26,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Delete(),
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            provider: ToDoListStateProvider::class,
+        ),
         new Post(),
         new Patch(),
         new Put()
     ],
-    filters: ['todolistitem.search_filter']
+    // filters: ['todolistitem.search_filter']
 )]
 class ToDoListItem
 {

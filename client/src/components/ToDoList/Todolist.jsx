@@ -25,7 +25,7 @@ function Todolist() {
 
         const fetchData = async () => {
             try {
-                const response = await axiosInstance.get(`/to_do_list_items?user=${userId}`, {
+                    const response = await axiosInstance.get(`/to_do_list_items`, {
                     signal: controller.signal
                 });
                 isMounted && setTodos(response.data);

@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
-import { RouterProvider,Routes,Route, createBrowserRouter, Outlet, BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext'; // Assure-toi du bon chemin
-import axiosInstance from './services/axiosInstance';
+import React from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/Connexion/ProtectedRoute';
 import Todolist from './components/ToDoList/Todolist';
 import Home from './components/Home';
@@ -64,7 +63,6 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                
                 path: '/',
                 element: <Home />,
             },
@@ -87,12 +85,10 @@ const router = createBrowserRouter([
 function Root() {
     return (
         <>
-        {/* <PersistLogin/> */}
         <main className='relative'>
             <div className='md:flex md:flex-row'>
                 <Nav />
                 <PersistLogin/>
-                {/* <Outlet />      */}
             </div>
         </main>
         </>
@@ -101,24 +97,10 @@ function Root() {
 
 function App() {
 
-    useEffect(() => {
-        axiosInstance(); // Configure l'intercepteur au démarrage
-    }, []);
-
     return (
         <AuthProvider>
-            {/* <BrowserRouter>
-            <Routes>
-<Route>
-    <Route element={<PersistLogin/>}>
-    <Route path={'/'} element={<Home/>}/>
-    </Route>
-</Route>
-            </Routes>
-            </BrowserRouter> */}
             <RouterProvider router={router} />
         </AuthProvider>
-
     );
 }
 
