@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { useAuth } from '../../contexts/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
+import axiosInstance from '../../services/axiosInstance';
 import 'react-toastify/dist/ReactToastify.css';
 import addtodopng from '../../assets/img-home/add-todo.png';
 import modifytodomodalpng from '../../assets/img-home/modify-todo-modal.png';
@@ -36,6 +38,9 @@ function FormAdd({ addTodo }) {
   const [MessageSuccess, setMessageSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const color = '#1CA324';
+  const { userConnected } = useAuth();
+  const userId = userConnected.id
+
 
   function openModal() {
     setIsOpen(true);
@@ -93,37 +98,38 @@ function FormAdd({ addTodo }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch('http://localhost:8000/api/to_do_list_items', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/ld+json; charset=utf-8',
-      },
-      body: JSON.stringify({
-        content: itemValue,
-        priority: parseInt(selectedPriority, 10),
-        difficulty: parseInt(selectedDifficulty, 10),
-        deadline: selectedDateTime,
-        done: parseInt(selectedDone, 10),
-        createdAt: new Date().toISOString(),
-      }),
-    });
-    if (response.ok) {
-      const newItem = await response.json();
-      addTodo(newItem);
-      setItemValue('');
-      setSelectedDateTime('');
-      setSelectedPriority('1');
-      setSelectedDifficulty('1');
-      setSelectedDone('1');
-      setMessageSuccess('Bravo vous avez ajoutez la ToDo');
-      setLoading(false);
-    } else {
-      setLoading(false);
-      const body = await response.json();
-      toast(body.violations[0].message);
-      throw new Error(response.statusText || "Une erreur s'est produite");
-    }
-  };
+    const response = await axiosInstance.post('/to_do_list_items', 
+        {
+            content: itemValue,
+            priority: parseInt(selectedPriority, 10),
+            difficulty: parseInt(selectedDifficulty, 10),
+            deadline: selectedDateTime,
+            done: parseInt(selectedDone, 10),
+            createdAt: new Date().toISOString(),
+            user: `/api/users/${userId}`,
+        },
+        {
+            headers: {
+                'Content-Type': 'application/ld+json',
+            }
+        }
+    );
+      if (response.status === 201) {
+        addTodo(response.data);
+        setItemValue('');
+        setSelectedDateTime('');
+        setSelectedPriority('1');
+        setSelectedDifficulty('1');
+        setSelectedDone('1');
+        setMessageSuccess('Bravo vous avez ajoutez la ToDo');
+        setLoading(false);
+        closeModal()
+      } else {
+        setLoading(false);
+        toast(response.data.violations[0].message);
+        throw new Error(response.statusText || "Une erreur s'est produite");
+      }
+    };
 
   return (
     <>
