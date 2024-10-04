@@ -30,7 +30,7 @@ COPY --chown=www-data:www-data ./vhost.conf /etc/apache2/sites-available/000-def
 RUN rm -rf /home/www-data/www/.env.local 
 
 # RUN composer install --no-cache --prefer-dist --optimize-autoloader
-RUN composer install --prefer-dist --optimize-autoloader
+RUN composer install --prefer-dist --optimize-autoloader --verbose
 
 USER root
 
