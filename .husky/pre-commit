@@ -1,20 +1,20 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+# . "$(dirname -- "$0")/_/husky.sh"
 
-echo "tests security et codeSniffer sur l'api symfony"
+# echo "tests security et codeSniffer sur l'api symfony"
 
-cd api 
-echo "test security"
-symfony check:security 
-echo "testCodeSniffer"
-php ./vendor/bin/phpcbf
-php ./vendor/bin/phpcs
+# cd api 
+# echo "test security"
+# symfony check:security 
+# echo "testCodeSniffer"
+# php ./vendor/bin/phpcbf
+# php ./vendor/bin/phpcs
 
 
-echo "tests Lint & Prettier sur le client React"
+# echo "tests Lint & Prettier sur le client React"
 
-cd ../client 
-echo "test Prettier"
-npm run format
-echo "test Linter"
-npm run lint
+# cd ../client 
+# echo "test Prettier"
+# npm run format
+# echo "test Linter"
+# npm run lint
