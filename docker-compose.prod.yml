@@ -1,0 +1,41 @@
+services:
+  db:
+    container_name: db-prod
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: every_meeting_prod
+    ports:
+      - 3049:3306
+
+  client:
+    container_name: client-prod
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile.prod
+    ports:
+      - 3041:80
+    pull_policy: build
+
+  api:
+    container_name: api-prod
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile.prod
+    depends_on:
+      - db
+    ports:
+      - 3044:80
+    pull_policy: build
+
+  phpmyadmin:
+    container_name: phpmyadmin-prod
+    depends_on:
+      - db
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - 3046:80
+    environment:
+      PMA_HOST: db

@@ -1,3 +1,2 @@
 symfony composer install
-symfony server:start --no-tls
-symfony serve -d
+symfony server:start --no-tls 

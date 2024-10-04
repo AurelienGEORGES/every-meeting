@@ -1,0 +1,51 @@
+# name: test e2e with Cypress
+
+# on: 
+#   pull_request:
+#     branches:
+#       - dev
+
+# jobs:
+#   cypress-test:
+#     runs-on: ubuntu-latest
+#     env:
+#       DB_USER: root
+#       DB_PASSWORD: root
+#       DB_NAME: everymeeting
+#       DB_HOST: localhost
+#       DATABASE_URL: "mysql://root:root@localhost:3306/everymeeting?serverVersion=8.1.0&charset=utf8mb4"
+#     steps:
+#       - uses: actions/checkout@v3
+            
+#       - name: Start MySQL
+#         run: |
+#             sudo /etc/init.d/mysql start
+#             mysql -e 'CREATE DATABASE IF NOT EXISTS everymeeting;' -uroot -proot
+
+#       - name: Install Symfony CLI
+#         run: |
+#             wget https://get.symfony.com/cli/installer -O - | bash
+#             sudo mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
+
+#       - name: Start server
+#         run: |
+#           composer install --no-interaction 
+#           symfony console doctrine:migrations:migrate --no-interaction 
+#           symfony console doctrine:fixtures:load --no-interaction
+#           symfony server:start &
+#         working-directory: api
+
+#       - name: Debug
+#         run: |
+#           curl http://127.0.0.1:8000/api/to_do_list_items
+
+#       - name: Run Cypress
+#         uses: cypress-io/github-action@v6
+#         with:
+#           working-directory: client
+#           wait-on: "http://localhost:3000/"
+#           wait-on-timeout: 3000
+#           browser: chrome
+#           build: npm run build
+#           start: npm run dev
+
