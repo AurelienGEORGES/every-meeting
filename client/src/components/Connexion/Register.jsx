@@ -52,7 +52,8 @@ const Register = () => {
         }
         try {
             const response = await axiosInstance.post(
-                'http://localhost:8000/api/users',
+                // 'http://localhost:8000/api/users',
+                'http://localhost:3044/api/users',
                 {
                     email,
                     username,

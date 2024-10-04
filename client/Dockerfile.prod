@@ -1,0 +1,29 @@
+# Utilisez une image officielle de Node.js
+FROM node:lts-alpine as build
+
+# Définissez le répertoire de travail
+WORKDIR /usr/src/app
+
+COPY ./package*.json .
+
+RUN npm ci
+
+COPY . .
+
+# Effectue un build pour la production
+RUN npm run build
+
+# Supprimer les node_modules après le build
+RUN rm -rf node_modules
+
+# Utilisez Nginx pour servir les fichiers statiques
+FROM nginx:alpine
+
+# Copier les fichiers de build depuis le premier stage
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+# Commande pour démarrer Nginx
+CMD ["nginx", "-g", "daemon off;"]
