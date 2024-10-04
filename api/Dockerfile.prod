@@ -33,7 +33,7 @@ USER root
 
 # RUN composer install --no-cache --prefer-dist --optimize-autoloader
 # RUN composer install --prefer-dist --optimize-autoloader --verbose
-RUN composer install --prefer-dist
+RUN composer install
 
 RUN a2enmod rewrite headers && a2enconf  
 
