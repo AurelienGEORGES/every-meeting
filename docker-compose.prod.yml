@@ -8,6 +8,8 @@ services:
       MYSQL_DATABASE: every_meeting_prod
     ports:
       - 3049:3306
+    networks:
+      - every-meeting-prod
 
   client:
     container_name: client-prod
@@ -17,17 +19,21 @@ services:
     ports:
       - 3041:80
     pull_policy: build
+    networks:
+      - every-meeting-prod
 
   api:
     container_name: api-prod
     build:
-      context: ./api
-      dockerfile: ./Dockerfile.prod
+      context: ./
+      dockerfile: ./api/Dockerfile.prod
     depends_on:
       - db
     ports:
       - 3044:80
     pull_policy: build
+    networks:
+      - every-meeting-prod
 
   phpmyadmin:
     container_name: phpmyadmin-prod
@@ -39,3 +45,9 @@ services:
       - 3046:80
     environment:
       PMA_HOST: db
+    networks:
+      - every-meeting-prod
+
+networks:
+  every-meeting-prod:
+    driver: bridge

@@ -14,26 +14,22 @@ RUN apt-get clean
 # Installez Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Activez les modules Apache nécessaires
-RUN a2enmod proxy proxy_http rewrite
-
-# USER www-data
+USER www-data
 
 WORKDIR /home/www-data/www
 
 RUN chown -R www-data:www-data /home/www-data/www
 
-COPY --chown=www-data:www-data ./ /home/www-data/www
+COPY --chown=www-data:www-data ./api /home/www-data/www
 
-COPY --chown=www-data:www-data ./vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY --chown=www-data:www-data ./api/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 RUN rm -rf /home/www-data/www/.env.local 
 
+RUN composer install --no-dev --no-cache --prefer-dist --optimize-autoloader
+
 USER root
 
-RUN composer install --no-cache --prefer-dist --optimize-autoloader
-# RUN composer install --prefer-dist --optimize-autoloader --verbose
-
-RUN a2enmod rewrite headers && a2enconf  
+RUN a2enmod rewrite headers && a2enconf
 
 CMD ["apache2-foreground"]
