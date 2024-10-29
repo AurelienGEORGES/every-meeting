@@ -16,8 +16,8 @@ function Todolist() {
     const [todos, setTodos] = useState('');
     const { userConnected } = useAuth();
     const userId = userConnected.id
-    //const effectRun = useRef(false)
-    const effectRun = useRef(true)
+    const effectRun = useRef(false)
+    // const effectRun = useRef(true)
     
     useEffect(() => {
 
@@ -28,6 +28,7 @@ function Todolist() {
             try {
                     const response = await axiosInstance.get(`/to_do_list_items`, {
                     signal: controller.signal
+                    
                 },
             );
                 isMounted && setTodos(response.data);
@@ -43,8 +44,8 @@ function Todolist() {
         return () => {
             isMounted = false
             isMounted && controller.abort()
-            // effectRun.current = true
-            effectRun.current = false
+            effectRun.current = true
+            // effectRun.current = false
         }
     }, [userId]);
 
