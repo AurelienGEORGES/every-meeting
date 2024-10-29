@@ -52,7 +52,7 @@ const Register = () => {
         }
         try {
             const response = await axiosInstance.post(
-                '/api/users',
+                '/users',
                 {
                     email,
                     username,
