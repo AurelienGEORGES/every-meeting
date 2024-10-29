@@ -1,15 +1,7 @@
 import axios from 'axios';
 // Assurez-vous d'importer le bon contexte
 
-// let API_URL = ''; // Remplacez par l'URL de votre API
-
-// if (import.meta.env.DEV) {
-//     API_URL = 'http://localhost:8000/api'
-// } else {
-//     API_URL = window.location.origin + '/api'
-// }
-
-let API_URL = 'http://localhost:3044/api'
+const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV
 
 // Crée une instance axios avec une configuration de base
 const axiosInstance = axios.create({
