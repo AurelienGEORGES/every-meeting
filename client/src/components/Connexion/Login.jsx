@@ -21,10 +21,6 @@ const Login = () => {
                 },
                 {
                     withCredentials: true,
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
                 }
             );
             const token = response.data.token;

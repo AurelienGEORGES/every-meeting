@@ -34,4 +34,6 @@ USER root
 
 RUN a2enmod rewrite headers && a2enconf
 
+RUN php bin/console lexik:jwt:generate-keypair --overwrite --no-interaction
+
 CMD ["apache2-foreground"]
