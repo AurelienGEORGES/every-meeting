@@ -5,9 +5,14 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libpng-dev \
     unzip libzip-dev zip \
+    libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install pdo pdo_mysql
+    && docker-php-ext-install pdo pdo_mysql 
+
+# ajout pour admin
+RUN docker-php-ext-configure intl 
+RUN docker-php-ext-install intl
 
 RUN apt-get clean
 
@@ -34,6 +39,4 @@ USER root
 
 RUN a2enmod rewrite headers && a2enconf
 
-RUN php bin/console lexik:jwt:generate-keypair --overwrite --no-interaction
-
-CMD ["apache2-foreground"]
+ENTRYPOINT ["bash", "/home/www-data/www/script.prod.sh"]
