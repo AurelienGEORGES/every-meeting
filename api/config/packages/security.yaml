@@ -40,8 +40,8 @@ security:
         - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
         - { path: ^/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs
         - { path: ^/api/auth, roles: PUBLIC_ACCESS }
-        - { path: ^/api/to_do_list_items, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/admin/, roles: [ROLE_ADMIN,IS_AUTHENTICATED_FULLY] }
+        - { path: ^/api/to_do_list, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin/, roles: ROLE_ADMIN }
 when@test:
     security:
         password_hashers:
