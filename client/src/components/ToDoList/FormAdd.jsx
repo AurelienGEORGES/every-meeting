@@ -39,8 +39,7 @@ function FormAdd({ addTodo }) {
   const [loading, setLoading] = useState(false);
   const color = '#1CA324';
   const { userConnected } = useAuth();
-  const userId = userConnected.id
-
+  const userId = userConnected.id;
 
   function openModal() {
     setIsOpen(true);
@@ -98,38 +97,39 @@ function FormAdd({ addTodo }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await axiosInstance.post('/to_do_list_items', 
-        {
-            content: itemValue,
-            priority: parseInt(selectedPriority, 10),
-            difficulty: parseInt(selectedDifficulty, 10),
-            deadline: selectedDateTime,
-            done: parseInt(selectedDone, 10),
-            createdAt: new Date().toISOString(),
-            user: `/api/users/${userId}`,
+    const response = await axiosInstance.post(
+      '/to_do_list_items',
+      {
+        content: itemValue,
+        priority: parseInt(selectedPriority, 10),
+        difficulty: parseInt(selectedDifficulty, 10),
+        deadline: selectedDateTime,
+        done: parseInt(selectedDone, 10),
+        createdAt: new Date().toISOString(),
+        user: `/api/users/${userId}`,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/ld+json',
         },
-        {
-            headers: {
-                'Content-Type': 'application/ld+json',
-            }
-        }
+      },
     );
-      if (response.status === 201) {
-        addTodo(response.data);
-        setItemValue('');
-        setSelectedDateTime('');
-        setSelectedPriority('1');
-        setSelectedDifficulty('1');
-        setSelectedDone('1');
-        setMessageSuccess('Bravo vous avez ajoutez la ToDo');
-        setLoading(false);
-        closeModal()
-      } else {
-        setLoading(false);
-        toast(response.data.violations[0].message);
-        throw new Error(response.statusText || "Une erreur s'est produite");
-      }
-    };
+    if (response.status === 201) {
+      addTodo(response.data);
+      setItemValue('');
+      setSelectedDateTime('');
+      setSelectedPriority('1');
+      setSelectedDifficulty('1');
+      setSelectedDone('1');
+      setMessageSuccess('Bravo vous avez ajoutez la ToDo');
+      setLoading(false);
+      closeModal();
+    } else {
+      setLoading(false);
+      toast(response.data.violations[0].message);
+      throw new Error(response.statusText || "Une erreur s'est produite");
+    }
+  };
 
   return (
     <>

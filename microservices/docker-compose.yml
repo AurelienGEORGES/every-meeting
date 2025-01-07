@@ -1,0 +1,30 @@
+services:
+  event-logger-service:
+    build: ./event-logger
+    container_name: event-logger-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=${PORT}
+      - MONGODB_URI=${MONGODB_URI}
+    depends_on:
+      - event-logger-db
+    networks:
+      - events-logger-network
+
+  event-logger-db:
+    image: mongo:latest
+    container_name: event-logger-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - events-logger-network
+
+networks:
+  events-logger-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

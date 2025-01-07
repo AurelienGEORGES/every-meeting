@@ -3,10 +3,10 @@ gesdinet_jwt_refresh_token:
     logout_firewall: refresh_jwt
     cookie:
       enabled: true
-      same_site: lax               # default value
-      path: /                      # default value
-      domain: null                 # default value
-      http_only: true              # default value
-      secure: true                 # default value
-      partitioned: false           # default value
-      remove_token_from_body: true # default value
+      same_site: lax               
+      path: /                      
+      domain: null                 
+      http_only: true              
+      secure: true                 
+      partitioned: false           
+      remove_token_from_body: true 

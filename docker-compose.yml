@@ -1,5 +1,5 @@
 services:
-  api:
+  api-dev:
     container_name: every-meeting-api
     build:
       context: ./api
@@ -15,7 +15,7 @@ services:
     networks:
       - mynetwork
 
-  client:
+  client-dev:
     container_name: every-meeting-client
     build:
       context: ./client
@@ -28,7 +28,7 @@ services:
       - NODE_ENV=development
       - WATCHPACK_POLLING=true
     depends_on:
-      - api
+      - api-dev
     networks:
       - mynetwork
 
@@ -45,7 +45,7 @@ services:
     volumes:
       - "my-volume:/var/lib/mysql"
     
-  phpmyadmin:
+  phpmyadmin-dev:
     image: phpmyadmin:latest
     ports:
       - "8080:80"  
