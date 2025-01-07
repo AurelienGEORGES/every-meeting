@@ -61,20 +61,21 @@ jobs:
                 php-version: "8.3"
                 coverage: xdebug
 
-            - name: Check Security on Ubuntu  
+            - name: Install composer on Ubuntu  
               run: |
-                echo "test security on Ubuntu"
                 composer install
+
+            - name: check
+              run: |
                 symfony check:security
 
-    #   - name: Code Sniffer on Ubuntu
-    #     run: |
-    #         echo "test Code Sniffer on Ubuntu"
-    #         php ./vendor/bin/phpcs
-    #         php ./vendor/bin/phpcbf
+            - name: Code Sniffer on Ubuntu
+              run: |
+                php ./vendor/bin/phpcs
+                
 
-      
-    #   - name: phpunit
-    #     run: |   
-    #         php ./vendor/bin/phpunit --testdox --coverage-text --coverage-clover=coverage.xml
+# php ./vendor/bin/phpcbf      
+            # - name: phpunit
+            #   run: |   
+            #     php ./vendor/bin/phpunit --testdox --coverage-text --coverage-clover=coverage.xml
             
