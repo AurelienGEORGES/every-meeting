@@ -55,12 +55,12 @@ services:
       - "3042:3042"
     pull_policy: build
     environment:
-      - PORT=3001
+      - PORT=3042
       - MONGODB_URI=mongodb://event-logger-db:27017/eventlogger
     depends_on:
       - event-logger-db
     networks:
-      - every-meeting-prod
+      - events-logger-network
 
   event-logger-db:
     image: mongo:latest
@@ -70,10 +70,12 @@ services:
     volumes:
       - mongodb_data_prod:/data/db
     networks:
-      - every-meeting-prod
+      - events-logger-network
 
 networks:
   every-meeting-prod:
+    driver: bridge
+  events-logger-network:
     driver: bridge
 
 volumes:
