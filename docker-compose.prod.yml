@@ -60,7 +60,7 @@ services:
     depends_on:
       - event-logger-db
     networks:
-      - events-logger-network
+      - every-meeting-prod
 
   event-logger-db:
     image: mongo:latest
@@ -70,12 +70,10 @@ services:
     volumes:
       - mongodb_data_prod:/data/db
     networks:
-      - events-logger-network
+      - every-meeting-prod
 
 networks:
   every-meeting-prod:
-    driver: bridge
-  events-logger-network:
     driver: bridge
 
 volumes:
