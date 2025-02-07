@@ -48,6 +48,36 @@ services:
     networks:
       - every-meeting-prod
 
+  event-logger-service:
+    build: ./event-logger
+    container_name: event-logger-service-prod
+    ports:
+      - "3042:3042"
+    pull_policy: build
+    environment:
+      - PORT=3001
+      - MONGODB_URI=mongodb://event-logger-db:27017/eventlogger
+    depends_on:
+      - event-logger-db
+    networks:
+      - events-logger-network
+
+  event-logger-db:
+    image: mongo:latest
+    container_name: event-logger-db-prod
+    ports:
+      - "3043:27017"
+    volumes:
+      - mongodb_data_prod:/data/db
+    networks:
+      - events-logger-network
+
 networks:
   every-meeting-prod:
     driver: bridge
+  events-logger-network:
+    driver: bridge
+
+volumes:
+  - mongodb_data_prod
+

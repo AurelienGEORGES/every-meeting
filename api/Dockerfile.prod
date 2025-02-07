@@ -29,6 +29,8 @@ COPY --chown=www-data:www-data ./api /home/www-data/www
 
 COPY --chown=www-data:www-data ./api/vhost.conf /etc/apache2/sites-available/000-default.conf
 
+RUN sed -i 's|^GATEWAY_URL=.*|GATEWAY_URL=https://gateway.every-meeting.com/internal/logs|' .env
+
 RUN rm -rf /home/www-data/www/.env.local 
 
 ENV APP_ENV=prod

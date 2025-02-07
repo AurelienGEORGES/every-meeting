@@ -36,6 +36,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
