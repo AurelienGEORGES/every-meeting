@@ -42,6 +42,7 @@ security:
         - { path: ^/api/auth, roles: PUBLIC_ACCESS }
         - { path: ^/api/to_do_list, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin/, roles: ROLE_ADMIN }
+        - { path: ^/logs, roles: ROLE_ADMIN }
 when@test:
     security:
         password_hashers:
