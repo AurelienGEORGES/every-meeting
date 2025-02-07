@@ -1,5 +1,5 @@
 services:
-  api:
+  api-dev:
     container_name: every-meeting-api
     build:
       context: ./api
@@ -12,10 +12,10 @@ services:
       - XDEBUG_MODE=coverage
     depends_on:
       - db
-    networks:
-      - mynetwork
+    # networks:
+      # - mynetwork
 
-  client:
+  client-dev:
     container_name: every-meeting-client
     build:
       context: ./client
@@ -28,9 +28,9 @@ services:
       - NODE_ENV=development
       - WATCHPACK_POLLING=true
     depends_on:
-      - api
-    networks:
-      - mynetwork
+      - api-dev
+    # networks:
+      # - mynetwork
 
   db:
     image: mysql:latest 
@@ -40,22 +40,58 @@ services:
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: everymeeting
-    networks:
-      - mynetwork
+    # networks:
+      # - mynetwork
     volumes:
       - "my-volume:/var/lib/mysql"
     
-  phpmyadmin:
+  phpmyadmin-dev:
     image: phpmyadmin:latest
     ports:
       - "8080:80"  
     environment:
       - PMA_HOST=db
+    # networks:
+      # - mynetwork
+
+  event-logger-service:
+    build: ./event-logger
+    container_name: event-logger-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MONGODB_URI=mongodb://event-logger-db:27017/eventlogger
+    depends_on:
+      - event-logger-db
     networks:
-      - mynetwork
+      - events-logger-network
+
+  event-logger-db:
+    image: mongo:latest
+    container_name: event-logger-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - events-logger-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
+# networks:
+  # mynetwork:
 
 networks:
-  mynetwork:
+  events-logger-network:
+    driver: bridge
 
 volumes:
   my-volume:
+  mongodb_data:

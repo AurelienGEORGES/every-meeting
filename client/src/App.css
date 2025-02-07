@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "ProtestRiot-Regular";
+  src: url("/ProtestRiot-Regular.ttf") format("truetype");
+}
+body,
+textarea,
+input {
+  font-family: ProtestRiot-Regular;
+}
+
+.todo textarea::-moz-placeholder {
+  color: rgb(75, 85, 99);
+  font-size: 1.25rem;
+}
+
+.todo textarea::placeholder {
+  color: rgb(75, 85, 99);
+  font-size: 1.25rem;
+}
+.todo .date-add-todo::-webkit-calendar-picker-indicator {
+  font-size: 3rem;
+  filter: invert(0.3);
+  cursor: pointer;
+}
+
+/* Stylisation de la barre de progression */
+progress {
+  width: 200px;
+  height: 20px;
+  border: 1px solid rgb(75, 85, 99);
+  border-radius: 2px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #2F9B08;
+}
+
+progress::-moz-progress-bar {
+  background-color: #2F9B08;
+}/*# sourceMappingURL=App.css.map */
