@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: every_meeting_prod
+      MYSQL_DATABASE: everymeeting_prod
     ports:
       - 3049:3306
     networks:
