@@ -1,2 +1,2 @@
-symfony composer install
-symfony server:start --no-tls --allow-all-ip  
+composer install
+symfony server:start --no-tls --allow-all-ip

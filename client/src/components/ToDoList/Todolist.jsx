@@ -15,8 +15,8 @@ function Todolist() {
   const [todos, setTodos] = useState('');
   const { userConnected } = useAuth();
   const userId = userConnected.id;
-//   const effectRun = useRef(false)
-  const effectRun = useRef(true);
+  const effectRun = useRef(false)
+//   const effectRun = useRef(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -40,8 +40,8 @@ function Todolist() {
     return () => {
       isMounted = false;
       isMounted && controller.abort();
-    //   effectRun.current = true
-      effectRun.current = false;
+      effectRun.current = true
+    //   effectRun.current = false;
     };
   }, [userId]);
 
