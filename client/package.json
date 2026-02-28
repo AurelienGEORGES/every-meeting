@@ -15,7 +15,7 @@
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@mui/icons-material": "^5.15.7",
-    "axios": "^1.6.5",
+    "axios": "^1.13.5",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.3",
     "prop-types": "^15.8.1",
@@ -23,7 +23,7 @@
     "react-dom": "^18.3.1",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.22.0",
-    "react-spinners": "^0.13.8",
+    "react-spinners": "^0.17.0",
     "react-toastify": "^10.0.4",
     "sse.js": "^2.5.0",
     "uuid": "^9.0.1"
