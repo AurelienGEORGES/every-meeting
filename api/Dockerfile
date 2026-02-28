@@ -1,45 +1,57 @@
-# Utilisez l'image PHP avec Apache
-FROM php:8.2-apache
+# On passe sur 8.4-apache pour la stabilité des extensions
+FROM php:8.4-apache
 
-# Installe les dépendances nécessaires
+# 1. Installation des dépendances système
 RUN apt-get update && apt-get install -y \
     libzip-dev \
-    zip
-    
-# fixing symfony check:requirements
-RUN apt-get update && apt-get install -y libicu-dev
-RUN docker-php-ext-configure intl 
-RUN docker-php-ext-install intl
+    zip \
+    libicu-dev \
+    libpng-dev \
+    g++ \
+    make \
+    autoconf \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
-#RUN docker-php-ext-configure opcache --enable-opcache
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-#fin test
-RUN docker-php-ext-install opcache
-RUN docker-php-ext-install pdo pdo_mysql
+# 2. Installation des extensions PHP
+# Note: opcache est compilé séparément pour éviter les conflits de 'make'
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-install -j$(nproc) intl pdo pdo_mysql zip opcache
 
-# Active les modules Apache nécessaires
+# 3. Xdebug (optionnel)
+RUN pecl install xdebug && docker-php-ext-enable xdebug || echo "Xdebug non installé"
+
+# 4. Configuration d'Apache (DocumentRoot vers /public)
 RUN a2enmod rewrite
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Installe Composer
+# 5. Outils (Composer + Symfony CLI)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh | bash - \
+    && apt-get install -y symfony-cli
 
-# Installe Symfony CLI
-RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh | bash - &&\
-    apt-get install -y symfony-cli
+# 6. Configuration PHP optimisée pour Symfony 7
+RUN { \
+    echo 'short_open_tag = Off'; \
+    echo 'post_max_size = 150M'; \
+    echo 'upload_max_filesize = 100M'; \
+    echo 'memory_limit = 512M'; \
+    echo 'date.timezone = UTC'; \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.memory_consumption=256'; \
+    echo 'opcache.max_accelerated_files=20000'; \
+    } > /usr/local/etc/php/conf.d/docker-symfony.ini
 
-# Copie le code source Symfony dans le conteneur
+# 7. Code Source et Workdir
+WORKDIR /var/www/html
 COPY ./ /var/www/html
 
-# Ajoute la configuration pour désactiver short_open_tag
-RUN echo "short_open_tag = Off" >> /usr/local/etc/php/php.ini
+# 8. Droits et permissions
+# On crée les dossiers et on donne les droits à l'utilisateur Apache (www-data)
+RUN mkdir -p var/cache var/log \
+    && chown -R www-data:www-data var/cache var/log \
+    && chmod +x /var/www/html/script.sh
 
-# # Set post_max_size and upload_max_filesize
-RUN echo "post_max_size = 150M" >> /usr/local/etc/php/php.ini
-RUN echo "upload_max_filesize = 100M" >> /usr/local/etc/php/php.ini
-RUN echo "memory_limit = 512M" >> /usr/local/etc/php/php.ini
-
-# Rend le script exécutable
-RUN chmod +x /var/www/html/script.sh
-
-# Point d'entrée pour exécuter le script d'initialisation
 ENTRYPOINT ["bash", "/var/www/html/script.sh"]
